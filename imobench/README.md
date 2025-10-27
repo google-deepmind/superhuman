@@ -1,0 +1,188 @@
+# IMO Bench
+
+In July 2025, we celebrated a historic
+[achievement](https://deepmind.google/discover/blog/advanced-version-of-gemini-with-deep-think-officially-achieves-gold-medal-standard-at-the-international-mathematical-olympiad/):
+our advanced Gemini model with Deep Think technology reached a gold-medal
+standard at the International Mathematical Olympiad (IMO). This was a landmark
+moment for Al. But the win wasn't just about getting strong performances at IMO
+problems - it was about building a system capable of deep, robust mathematical
+reasoning.
+
+Today, October 2025, we are excited to introduce
+IMO-Bench (accepted to
+[EMNLP 2025](https://2025.emnlp.org/)), a suite of advanced reasoning benchmarks
+that played a crucial role in our IMO-gold journey and were designed to push the
+frontiers of mathematical reasoning in Al. Vetted by a panel of IMO medalists
+and mathematicians, IMO-Bench specifically targets the level of IMO due to its
+notoriously difficult problems, which require both rigorous multi-step reasoning
+and creativity beyond simple application of known formulas. IMO-Bench consists
+of three benchmarks that judge models on diverse capabilities:
+*IMO-AnswerBench* - a large-scale test on getting the right answer,
+*IMO-ProofBench* - a next-level evaluation for proof writing, and
+*IMO-GradingBench* to enable further progress in automatic evaluation of
+long-form answers.
+
+A key highlight of our work is to show that autograders built with Gemini
+reasoning correlate well with human evaluations on IMO-ProofBench, as
+illustrated below, for a wide range of foundation models. This was achieved
+thanks to the accompanying grading schemes in IMO-Bench, which are suitable for
+both human experts and automated systems. We ultimately hope to steer the
+community's focus from final answers to the proofs themselves, enabling a more
+rigorous assessment of Al reasoning processes. We
+[release](https://github.com/google-deepmind/superhuman/imobench) IMO-Bench
+together with rich grading data to the community to help enable further
+advancements towards robust mathematical reasoning.
+
+<div style="text-align: center;">
+  <img src="imgs/imo_proofbench_chart.png" alt="Correlation between human and automatic evaluations on IMO-ProofBench" height="500">
+</div>
+<!-- disableFinding(IMAGE_ALT_TEXT_INACCESSIBLE) -->
+
+> IMO-ProofBench, a benchmark in IMO-Bench, for measuring proof-writing
+> capabilities. We demonstrated high correlations between human and automatic
+> evaluations on a variety of public models, including our IMO-gold model.
+
+## Usage
+
+*   IMO-AnswerBench: [answerbench.csv](answerbench.csv)
+*   IMO-ProofBench: [proofbench.csv](proofbench.csv)
+*   IMO-GradingBench: [gradingbench.csv](gradingbench.csv)
+
+## Citing this work
+
+```
+@article{imo-bench-2025,
+  title   = {Towards Robust Mathematical Reasoning},
+  author  = {Thang Luong and Dawsen Hwang and Hoang H. Nguyen and Golnaz Ghiasi and Yuri Chervonyi and Insuk Seo and Junsu Kim and Garrett Bingham and Jonathan Lee and Swaroop Mishra and Alex Zhai and Clara Huiyi Hu and Henryk Michalewski and Jimin Kim and Jeonghyun Ahn and Junhwi Bae and Xingyou Song and Trieu H. Trinh and Quoc V. Le and Junehyuk Jung},
+  year    = {2025},
+  journal = {arXiv preprint}
+}
+```
+
+## IMO-AnswerBench
+
+The first benchmark, IMO-AnswerBench, consists of 400 problems with verifiable
+answers carefully chosen from past Olympiad competitions. The problems span
+across four IMO categories (Algebra, Combinatorics, Geometry, and Number Theory)
+and are altered by experts to avoid memorization. For each category, the
+benchmark contains 100 problems across four levels of difficulty: pre-IMO
+(middle school or pre-Math Olympiad problems), IMO-Easy (equivalent to Problem 1
+or Problem 4 at the IMO), IMO-Medium (equivalent to Problem 2 or Problem 5 at
+the IMO) and IMO-Hard (equivalent to Problem 3 or Problem 6 at the IMO or
+post-Math Olympiad problems). Problems were chosen from a variety of topics
+whose solutions require different problem solving techniques to ensure a diverse
+representation of topics, ideas, and domain knowledge as illustrated below.
+
+<div style="text-align: center;">
+  <img src="imgs/topic_distribution.png" alt="Topic Distribution" height="500">
+</div>
+
+> Topic distribution by category in IMO-AnswerBench. Number Theory and
+> Combinatorics have the most topics which reflect the broad knowledge required
+> to solve these problems while Geometry is mostly skewed towards angle and
+> sidelength computation problems due to the nature of the short answer
+> benchmark.
+
+Our Gemini Deep Think (IMO Gold) model achieved an overall accuracy of 80.0%,
+surpassing the best non-Gemini model (Grok 4) by 6.9% and the best open-weight
+model (DeepSeek R1) by 19.2%. Latest models such as GPT-5 are still struggling
+with overall accuracy of only 65.6% respectively. We show breakdowns of
+performances across the four categories (Algebra, Combinatorics, Geometry,
+Number Theory) in the figure below. Generally, models perform the worst in
+Combinatorics, potentially highlighting difficulties with advanced abstract
+reasoning.
+
+<div style="text-align: center;">
+  <img src="imgs/model_accuracy_answerbench.png" alt="Model Accuracy on IMO-AnswerBench" height="500">
+</div>
+
+> Model accuracy on IMO-AnswerBench. Results are averaged over 8 runs, except
+> for Gemini 2.5 Deep Think and Gemini Deep Think (IMO Gold) (single run).
+
+## IMO-ProofBench
+
+While the final answer accuracy provided by IMO-AnswerBench offers a valuable
+metric for measuring mathematical abilities, it is insufficient for a
+comprehensive assessment of mathematical reasoning. We, hence, introduce
+IMO-ProofBench as the next-level evaluation designed to evaluate the ability of
+Al models in constructing rigorous and valid mathematical arguments. With 60
+proof-based problems, the benchmark is divided into two subsets: a basic set
+covering pre-IMO to IMO-Medium difficulty levels, and an advanced set featuring
+novel, highly challenging problems simulating complete IMO examinations, up to
+IMO-Hard level. Our goal for the basic set is to assess models in their early
+stages of development. Sufficiently strong performance on the basic set would
+justify progression to the advanced set.
+
+Performances on the basic IMO-ProofBench varies significantly: while Gemini Deep
+Think (IMO Gold) achieves a high score of 89.0%, most models score below 60%,
+indicating that there is still considerable room for improvements. The advanced
+IMO-ProofBench proves to be a more significant challenge that all non-Gemini
+models score below 25%. Our Gemini Deep Think (IMO Gold) model achieved a
+state-of-the art score of 65.7% according to human evaluations. This represents
+a substantial leap in capability, but its distance from a perfect score
+indicates that even the strongest models have room for growth in sophisticated
+mathematical reasoning.
+
+<div style="text-align: center;">
+  <img src="imgs/model_accuracy_proofbench.png" alt="Expert evaluation on IMO-ProofBench" height="500">
+</div>
+
+> Expert evaluation results on the Basic and Advanced subsets of IMO-ProofBench.
+> Scores are presented as a percentage of the total possible points, with each
+> problem graded from 0-7.
+
+### Proof Autograder
+
+While human expert evaluation remains the gold standard for mathematical proofs,
+its cost and time intensity limit scalable research. To address this, we built
+ProofAutoGrader, an automatic grader for IMO-ProofBench. The autograder
+leverages Gemini 2.5 Pro, providing it with a prompt containing the problem
+statement, the candidate solution, a reference solution, and specific grading
+guidelines.
+
+Automatic evaluation for informal proofs is a highly intricate task, and current
+systems are not yet a perfect substitute for human experts. For this reason, all
+primary results in this paper are based on expert human evaluation to ensure all
+results are absolutely correct. Nevertheless, as we demonstrate in Section 5.3,
+we prove our autograder can be a reasonable proxy, establishing it as a
+reasonable tool for the community to assess future models on IMO-ProofBench.
+
+In addition, we also visualized, in the following figure, the performance of
+ProofAutoGrader on 170 internal systems, developed as part of our IMO gold
+[achievement](https://deepmind.google/discover/blog/advanced-version-of-gemini-with-deep-think-officially-achieves-gold-medal-standard-at-the-international-mathematical-olympiad/).
+On this larger pool, our automatic grader achieved a lower, but still reasonable
+Pearson correlation coefficient of 0.87.
+
+<div style="text-align: center;">
+  <img src="imgs/autograder_correlation.png" alt="Correlation between human expert grades and ProofAutoGrader scores" height="500">
+</div>
+
+## IMO-GradingBench
+
+IMO-GradingBench, with 1000 human gradings on proofs, is designed to enable
+further progress in automatic evaluation of long-form answers.
+
+<div style="text-align: center;">
+  <img src="imgs/grading_distribution.png" alt="Distribution of human grades in IMO-GradingBench" height="500">
+</div>
+
+## License and disclaimer
+
+Copyright 2025 Google LLC
+
+All software is licensed under the Apache License, Version 2.0 (Apache 2.0); you
+may not use this file except in compliance with the Apache 2.0 license. You may
+obtain a copy of the Apache 2.0 license at:
+https://www.apache.org/licenses/LICENSE-2.0
+
+All other materials are licensed under the Creative Commons Attribution 4.0
+International License (CC-BY). You may obtain a copy of the CC-BY license at:
+https://creativecommons.org/licenses/by/4.0/legalcode
+
+Unless required by applicable law or agreed to in writing, all software and
+materials distributed here under the Apache 2.0 or CC-BY licenses are
+distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the licenses for the specific language governing
+permissions and limitations under those licenses.
+
+This is not an official Google product.

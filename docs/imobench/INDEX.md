@@ -8,8 +8,7 @@ moment for Al. But the win wasn't just about getting strong performances at IMO
 problems - it was about building a system capable of deep, robust mathematical
 reasoning.
 
-Today, October 2025, we are excited to introduce
-IMO-Bench (accepted to
+Today, October 2025, we are excited to introduce IMO-Bench (accepted to
 [EMNLP 2025](https://2025.emnlp.org/)), a suite of advanced reasoning benchmarks
 that played a crucial role in our IMO-gold journey and were designed to push the
 frontiers of mathematical reasoning in Al. Vetted by a panel of IMO medalists
@@ -36,6 +35,7 @@ further advancements towards robust mathematical reasoning.
 <div style="text-align: center;">
   <img src="imgs/imo_proofbench_chart.png" alt="Correlation between human and automatic evaluations on IMO-ProofBench" height="500">
 </div>
+
 <!-- disableFinding(IMAGE_ALT_TEXT_INACCESSIBLE) -->
 
 > IMO-ProofBench, a benchmark in IMO-Bench, for measuring proof-writing
@@ -44,9 +44,12 @@ further advancements towards robust mathematical reasoning.
 
 ## Usage
 
-*   IMO-AnswerBench: [answerbench.csv](answerbench.csv)
-*   IMO-ProofBench: [proofbench.csv](proofbench.csv)
-*   IMO-GradingBench: [gradingbench.csv](gradingbench.csv)
+*   IMO-AnswerBench:
+    [answerbench.csv](https://github.com/google-deepmind/superhuman/blob/main/imobench/answerbench.csv)
+*   IMO-ProofBench:
+    [proofbench.csv](https://github.com/google-deepmind/superhuman/blob/main/imobench/proofbench.csv)
+*   IMO-GradingBench:
+    [gradingbench.csv](https://github.com/google-deepmind/superhuman/blob/main/imobench/gradingbench.csv)
 
 ## Citing this work
 

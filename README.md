@@ -1,14 +1,21 @@
 # Superhuman Reasoning
 
 This repository hosts projects and datasets created by Google DeepMind's
-Superhuman Reasoning team.
+Superhuman Reasoning team, led by Thang Luong.
 
 ## Projects
+### AlphaGeometry
+Nature [paper](https://www.nature.com/articles/s41586-023-06747-5).
+See https://github.com/google-deepmind/alphageometry.
+
+### AlphaGeometry2
+[2024 IMO-silver achievement](https://deepmind.google/blog/ai-solves-imo-problems-at-silver-medal-level/).
+See https://github.com/google-deepmind/alphageometry2.
 
 ### [IMO Bench](imobench/README.md)
 A suite of advanced benchmarks designed to evaluate robust mathematical
 reasoning in AI. Following our
-[2025 IMO gold medal achievement](https://deepmind.google/discover/blog/advanced-version-of-gemini-with-deep-think-officially-achieves-gold-medal-standard-at-the-international-mathematical-olympiad/),
+[2025 IMO-gold achievement](https://deepmind.google/discover/blog/advanced-version-of-gemini-with-deep-think-officially-achieves-gold-medal-standard-at-the-international-mathematical-olympiad/),
  this release includes:
 
 * *IMO-AnswerBench*: 400 challenging short-answer problems.
@@ -21,8 +28,8 @@ evaluation.
 
 
 ## [Aletheia](aletheia/README.md)
-A reasoning agent powered by Gemini Deep Think that can iteratively generate,
-verify, and revise solutions.
+A math research agent, powered by Gemini Deep Think, that can iteratively
+generate, verify, and revise solutions. See [paper](aletheia/Aletheia.pdf).
 
 This release includes prompts and outputs from Aletheia on research level math
 problems.

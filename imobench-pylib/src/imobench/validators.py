@@ -1,12 +1,12 @@
 """Validation utilities for IMO Bench datasets."""
 
-from typing import Any
+from typing import Any, Dict
 from .exceptions import ValidationError
 
 
 # Required fields for each dataset
 ANSWERBENCH_REQUIRED_FIELDS = {
-    'Problem ID', 'Problem', 'Short Answer', 'Category', 'Subcategory', 'Source'
+    'Problem ID', 'Problem', 'Short Answer', 'Category', 'Level', 'Subcategory', 'Source'
 }
 
 PROOFBENCH_REQUIRED_FIELDS = {
@@ -23,7 +23,7 @@ GRADINGBENCH_REQUIRED_FIELDS = {
 VALID_CATEGORIES = {'Algebra', 'Combinatorics', 'Geometry', 'Number theory'}
 
 
-def validate_answerbench_row(row: dict[str, Any]) -> None:
+def validate_answerbench_row(row: Dict[str, Any]) -> None:
     """Validate a row from answerbench.csv.
     
     Args:
@@ -59,7 +59,7 @@ def validate_answerbench_row(row: dict[str, Any]) -> None:
         )
 
 
-def validate_proofbench_row(row: dict[str, Any]) -> None:
+def validate_proofbench_row(row: Dict[str, Any]) -> None:
     """Validate a row from proofbench.csv.
     
     Args:
@@ -95,7 +95,7 @@ def validate_proofbench_row(row: dict[str, Any]) -> None:
         )
 
 
-def validate_gradingbench_row(row: dict[str, Any]) -> None:
+def validate_gradingbench_row(row: Dict[str, Any]) -> None:
     """Validate a row from gradingbench.csv.
     
     Args:

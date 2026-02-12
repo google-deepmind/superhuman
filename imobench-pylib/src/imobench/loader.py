@@ -2,7 +2,7 @@
 
 import csv
 from pathlib import Path
-from typing import Iterator, Optional, Callable
+from typing import Iterator, Optional, Callable, List, Dict, Union, Any
 
 from .types import (
     AnswerBenchProblem,
@@ -49,7 +49,7 @@ class IMOBenchLoader:
                 f"Please provide the correct path to the imobench directory."
             )
     
-    def _load_csv(self, filename: str) -> list[dict[str, str]]:
+    def _load_csv(self, filename: str) -> List[Dict[str, str]]:
         """Load a CSV file and return rows as dictionaries."""
         filepath = self.data_dir / filename
         
@@ -69,6 +69,7 @@ class IMOBenchLoader:
     def load_answerbench(
         self,
         category: Optional[str] = None,
+        level: Optional[str] = None,
         subcategory: Optional[str] = None,
         source: Optional[str] = None,
         validate: bool = True,
@@ -77,6 +78,7 @@ class IMOBenchLoader:
         
         Args:
             category: Filter by category (e.g., "Algebra", "Geometry")
+            level: Filter by difficulty level (e.g., "IMO-easy", "pre-IMO")
             subcategory: Filter by subcategory
             source: Filter by source (e.g., "IMO Shortlist 2021")
             validate: Whether to validate each row
@@ -98,6 +100,8 @@ class IMOBenchLoader:
             # Apply filters
             if category and row['Category'] != category:
                 continue
+            if level and row['Level'] != level:
+                continue
             if subcategory and row['Subcategory'] != subcategory:
                 continue
             if source and row['Source'] != source:
@@ -108,6 +112,7 @@ class IMOBenchLoader:
                 problem=row['Problem'],
                 short_answer=row['Short Answer'],
                 category=row['Category'],
+                level=row['Level'],
                 subcategory=row['Subcategory'],
                 source=row['Source'],
             )
@@ -169,7 +174,7 @@ class IMOBenchLoader:
         max_points: Optional[int] = None,
         validate: bool = True,
         lazy: bool = False,
-    ) -> GradingBenchDataset | Iterator[GradingBenchEntry]:
+    ) -> Union[GradingBenchDataset, Iterator[GradingBenchEntry]]:
         """Load IMO-GradingBench dataset.
         
         Note: This dataset is large (186K lines). Consider using lazy=True
@@ -310,7 +315,7 @@ def load_proofbench(**kwargs) -> ProofBenchDataset:
     return _get_default_loader().load_proofbench(**kwargs)
 
 
-def load_gradingbench(**kwargs) -> GradingBenchDataset | Iterator[GradingBenchEntry]:
+def load_gradingbench(**kwargs) -> Union[GradingBenchDataset, Iterator[GradingBenchEntry]]:
     """Load IMO-GradingBench using default loader.
     
     See IMOBenchLoader.load_gradingbench() for arguments.

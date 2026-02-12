@@ -1,7 +1,7 @@
 """Type definitions for IMO Bench datasets."""
 
 from dataclasses import dataclass
-from typing import Optional
+from typing import Optional, List
 
 
 @dataclass(frozen=True)
@@ -13,6 +13,7 @@ class AnswerBenchProblem:
         problem: The problem statement in LaTeX format
         short_answer: The expected answer
         category: Main category (Algebra, Combinatorics, Geometry, Number theory)
+        level: Difficulty level (e.g., "IMO-easy", "pre-IMO", "IMO-hard")
         subcategory: Specific subcategory within the main category
         source: Original source of the problem
     """
@@ -20,6 +21,7 @@ class AnswerBenchProblem:
     problem: str
     short_answer: str
     category: str
+    level: str
     subcategory: str
     source: str
 
@@ -84,6 +86,6 @@ class GradingBenchEntry:
 
 
 # Type aliases for collections
-AnswerBenchDataset = list[AnswerBenchProblem]
-ProofBenchDataset = list[ProofBenchProblem]
-GradingBenchDataset = list[GradingBenchEntry]
+AnswerBenchDataset = List[AnswerBenchProblem]
+ProofBenchDataset = List[ProofBenchProblem]
+GradingBenchDataset = List[GradingBenchEntry]

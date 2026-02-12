@@ -1,6 +1,9 @@
 """Tests for data loading functionality."""
 
 import pytest
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../src")))
 from pathlib import Path
 from imobench.loader import IMOBenchLoader
 from imobench.types import (
@@ -41,6 +44,7 @@ def test_load_answerbench(loader):
     first = problems[0]
     assert first.problem_id.startswith('imo-bench-')
     assert first.category in ['Algebra', 'Combinatorics', 'Geometry', 'Number theory']
+    assert first.level
 
 
 def test_load_answerbench_with_category_filter(loader):
@@ -57,7 +61,19 @@ def test_load_answerbench_with_source_filter(loader):
     
     # May or may not have results depending on data
     if problems:
-        assert all(p.source == "IMO Shortlist 2021" for p in problems)
+            assert all(p.source == "IMO Shortlist 2021" for p in problems)
+
+
+def test_load_answerbench_with_level_filter(loader):
+    """Test loading answerbench with level filter."""
+    problems = loader.load_answerbench(level="IMO-Medium", validate=False)
+    
+    if problems:
+        assert all(p.level == "IMO-Medium" for p in problems)
+    
+    problems_pre = loader.load_answerbench(level="pre-IMO", validate=False)
+    if problems_pre:
+        assert all(p.level == "pre-IMO" for p in problems_pre)
 
 
 def test_load_proofbench(loader):

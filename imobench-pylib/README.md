@@ -149,6 +149,7 @@ problem: AnswerBenchProblem = problems[0]
 | `problem` | `str` | Problem statement in LaTeX format |
 | `short_answer` | `str` | Expected answer |
 | `category` | `str` | Main category (Algebra, Combinatorics, Geometry, Number theory) |
+| `level` | `str` | Difficulty level (pre-IMO, IMO-easy, IMO-medium, IMO-hard) |
 | `subcategory` | `str` | Specific subcategory |
 | `source` | `str` | Original source of the problem |
 
@@ -189,6 +190,7 @@ Load IMO-AnswerBench dataset.
 
 **Parameters:**
 - `category` (Optional[str]): Filter by category
+- `level` (Optional[str]): Filter by level (pre-IMO, IMO-easy, etc.)
 - `subcategory` (Optional[str]): Filter by subcategory
 - `source` (Optional[str]): Filter by source
 - `validate` (bool): Enable validation (default: True)
@@ -252,6 +254,15 @@ ruff check src/ tests/
 ## Project Structure
 
 ```
+imobench/
+├── prompts/              # Autograder prompt templates
+│   ├── answer_autograder.txt
+│   └── proof_autograder.txt
+├── hf_dataset_cards/     # Hugging Face dataset cards
+├── answerbench.csv
+├── proofbench.csv
+├── gradingbench.csv
+└── ...
 imobench-pylib/
 ├── src/
 │   └── imobench/

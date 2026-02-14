@@ -99,6 +99,15 @@ class TestEvaluatePredictions:
         missing = [r for r in results if r["method"] == "missing"]
         assert len(missing) == 2
 
+    def test_empty_problem_id_raises(self, tmp_path: Path):
+        path = tmp_path / "bad.csv"
+        with open(path, "w", newline="", encoding="utf-8") as f:
+            writer = csv.writer(f)
+            writer.writerow(["Problem ID", "Model Answer"])
+            writer.writerow(["", "42"])
+        with pytest.raises(ValueError, match="Missing problem ID"):
+            load_predictions(path)
+
     def test_result_structure(
         self, sample_predictions_csv: Path, sample_answerbench: Path
     ):

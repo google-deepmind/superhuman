@@ -73,19 +73,27 @@ def load_predictions(path: str | Path) -> dict[str, str]:
 
     if path.suffix == ".jsonl":
         with open(path, encoding="utf-8") as f:
-            for line in f:
+            for line_num, line in enumerate(f, 1):
                 line = line.strip()
                 if not line:
                     continue
                 obj = json.loads(line)
                 pid = obj.get("problem_id", obj.get("Problem ID", ""))
+                if not pid:
+                    raise ValueError(
+                        f"Missing problem ID in {path} line {line_num}"
+                    )
                 answer = obj.get("answer", obj.get("Model Answer", ""))
                 predictions[pid] = str(answer)
     else:
         with open(path, newline="", encoding="utf-8") as f:
             reader = csv.DictReader(f)
-            for row in reader:
+            for row_num, row in enumerate(reader, 2):
                 pid = row.get("Problem ID", row.get("problem_id", ""))
+                if not pid:
+                    raise ValueError(
+                        f"Missing problem ID in {path} row {row_num}"
+                    )
                 answer = row.get("Model Answer", row.get("answer", ""))
                 predictions[pid] = str(answer)
 

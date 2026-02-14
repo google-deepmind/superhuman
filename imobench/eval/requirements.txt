@@ -1,2 +1,4 @@
 sympy>=1.12
+# Pinned for compatibility with sympy.parsing.latex (LaTeX → SymPy parser).
+# Different SymPy versions may bundle different ANTLR grammars.
 antlr4-python3-runtime==4.11.1

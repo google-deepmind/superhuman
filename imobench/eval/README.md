@@ -18,7 +18,9 @@ truth answers using mathematical equivalence checking.
 
 ```bash
 pip install -r imobench/eval/requirements.txt
-pip install pytest  # for running tests
+
+# For running tests:
+pip install -r imobench/eval/requirements-dev.txt
 ```
 
 ## Usage

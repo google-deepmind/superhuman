@@ -83,8 +83,8 @@ result:
 | Exact match | Identical normalized strings | `42` == `42` |
 | Numeric | Plain numbers | `3.0` == `3` |
 | Multi-answer | Comma-separated sets | `3, 1, 2` == `1, 2, 3` |
-| SymPy | LaTeX math expressions | `\frac{1}{2}` == `0.5` |
 | String normalized | Case/whitespace differences | `Algebra` == `algebra` |
+| SymPy | LaTeX math expressions | `\frac{1}{2}` == `0.5` |
 
 ## Running Tests
 

@@ -117,6 +117,21 @@ class TestCheckAnswer:
         assert result["correct"] is True
         assert result["method"] == "string_normalized"
 
+    # --- NaN/inf rejected ---
+    def test_nan_rejected(self):
+        result = check_answer("nan", "42")
+        assert result["correct"] is False
+        assert result["method"] != "numeric"
+
+    def test_inf_rejected(self):
+        result = check_answer("inf", "inf")
+        assert result["method"] != "numeric"
+
+    # --- Unbalanced brackets ---
+    def test_unbalanced_brackets(self):
+        parts = _split_multi_answer("a), b)")
+        assert len(parts) == 2
+
     # --- No match ---
     def test_no_match(self):
         result = check_answer("foo", "bar")

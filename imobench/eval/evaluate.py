@@ -19,7 +19,6 @@ Loads model predictions and scores them against the ground truth answers.
 
 import csv
 import json
-import os
 from pathlib import Path
 from typing import Any
 

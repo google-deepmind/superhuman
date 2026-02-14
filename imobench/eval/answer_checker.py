@@ -18,11 +18,15 @@ Supports numeric comparison, LaTeX expression parsing via SymPy, and
 multi-answer (comma-separated) set matching.
 """
 
+import math
 import re
-from typing import Any, Optional
+import threading
+from typing import Any
 
 from sympy import simplify
 from sympy.parsing.latex import parse_latex
+
+_SYMPY_TIMEOUT_SEC = 5
 
 
 def normalize_latex(text: str) -> str:
@@ -51,7 +55,7 @@ def _split_multi_answer(text: str) -> list[str]:
         if ch in "({[":
             depth += 1
         elif ch in ")}]":
-            depth -= 1
+            depth = max(0, depth - 1)
         elif ch == "," and depth == 0:
             parts.append("".join(current).strip())
             current = []
@@ -61,40 +65,65 @@ def _split_multi_answer(text: str) -> list[str]:
     return [p for p in parts if p]
 
 
-def _try_parse_number(text: str) -> Optional[float]:
-    """Try to parse a normalized string as a number."""
+def _try_parse_number(text: str) -> float | None:
+    """Try to parse a normalized string as a finite number."""
     try:
-        return float(text)
+        val = float(text)
+        if math.isfinite(val):
+            return val
+        return None
     except ValueError:
         return None
 
 
-def _try_parse_sympy(text: str) -> Any:
-    """Try to parse a LaTeX string into a SymPy expression."""
-    try:
-        expr = parse_latex(text)
-        return expr
-    except Exception:
+def _run_with_timeout(fn, timeout_sec: int = _SYMPY_TIMEOUT_SEC) -> Any:
+    """Run a callable with a timeout. Returns None on timeout or error."""
+    result: list[Any] = [None]
+    error: list[bool] = [False]
+
+    def target():
+        try:
+            result[0] = fn()
+        except Exception:
+            error[0] = True
+
+    thread = threading.Thread(target=target, daemon=True)
+    thread.start()
+    thread.join(timeout=timeout_sec)
+    if thread.is_alive() or error[0]:
         return None
+    return result[0]
+
+
+def _try_parse_sympy(text: str) -> Any:
+    """Try to parse a LaTeX string into a SymPy expression with timeout."""
+    return _run_with_timeout(lambda: parse_latex(text))
 
 
 def _expressions_equivalent(expr_a: Any, expr_b: Any) -> bool:
     """Check if two SymPy expressions are mathematically equivalent."""
-    try:
+    def _check():
         diff = simplify(expr_a - expr_b)
         if diff == 0:
             return True
         if hasattr(diff, "is_zero") and diff.is_zero:
             return True
-    except Exception:
-        pass
-    try:
-        return bool(expr_a.equals(expr_b))
-    except Exception:
         return False
 
+    result = _run_with_timeout(_check)
+    if result is True:
+        return True
 
-def check_answer(model_answer: str, ground_truth: str) -> dict[str, Any]:
+    def _check_equals():
+        return bool(expr_a.equals(expr_b))
+
+    result = _run_with_timeout(_check_equals)
+    return result is True
+
+
+def check_answer(
+    model_answer: str, ground_truth: str, _depth: int = 0
+) -> dict[str, Any]:
     """Check if a model answer matches the ground truth.
 
     Tries multiple strategies in order:
@@ -135,7 +164,7 @@ def check_answer(model_answer: str, ground_truth: str) -> dict[str, Any]:
 
     # 3. Multi-answer (comma-separated sets)
     truth_parts = _split_multi_answer(truth_norm)
-    if len(truth_parts) > 1:
+    if len(truth_parts) > 1 and _depth < 2:
         model_parts = _split_multi_answer(model_norm)
         if len(model_parts) != len(truth_parts):
             return {
@@ -150,7 +179,7 @@ def check_answer(model_answer: str, ground_truth: str) -> dict[str, Any]:
         for mp in model_parts:
             for i, tp in enumerate(truth_parts):
                 if i not in matched:
-                    sub_result = check_answer(mp, tp)
+                    sub_result = check_answer(mp, tp, _depth=_depth + 1)
                     if sub_result["correct"]:
                         matched.add(i)
                         break

@@ -17,7 +17,11 @@
 import pytest
 
 from imobench.eval.answer_checker import (
+    _expressions_equivalent,
+    _looks_like_math,
     _split_multi_answer,
+    _try_parse_number,
+    _try_parse_sympy,
     check_answer,
     normalize_latex,
 )
@@ -137,3 +141,77 @@ class TestCheckAnswer:
         result = check_answer("foo", "bar")
         assert result["correct"] is False
         assert result["method"] == "no_match"
+
+
+class TestNormalizeLatexDelimiters:
+    def test_backslash_parens(self):
+        assert normalize_latex(r"\(x+1\)") == "x+1"
+
+    def test_backslash_brackets(self):
+        assert normalize_latex(r"\[x+1\]") == "x+1"
+
+    def test_backslash_parens_with_period(self):
+        assert normalize_latex(r"\(x+1\).") == "x+1"
+
+
+class TestTryParseNumber:
+    def test_integer(self):
+        assert _try_parse_number("42") == 42.0
+
+    def test_negative(self):
+        assert _try_parse_number("-3") == -3.0
+
+    def test_float(self):
+        assert _try_parse_number("3.14") == 3.14
+
+    def test_nan_rejected(self):
+        assert _try_parse_number("nan") is None
+
+    def test_inf_rejected(self):
+        assert _try_parse_number("inf") is None
+
+    def test_negative_inf_rejected(self):
+        assert _try_parse_number("-inf") is None
+
+    def test_not_a_number(self):
+        assert _try_parse_number("abc") is None
+
+
+class TestTryParseSympy:
+    def test_simple_expression(self):
+        expr = _try_parse_sympy(r"\frac{1}{2}")
+        assert expr is not None
+
+    def test_empty_string(self):
+        expr = _try_parse_sympy("")
+        assert expr is None
+
+
+class TestExpressionsEquivalent:
+    def test_equal(self):
+        from sympy import Rational
+        assert _expressions_equivalent(Rational(1, 2), Rational(2, 4)) is True
+
+    def test_not_equal(self):
+        from sympy import Rational
+        assert _expressions_equivalent(Rational(1, 2), Rational(1, 3)) is False
+
+
+class TestLooksLikeMath:
+    def test_latex_backslash(self):
+        assert _looks_like_math(r"\frac{1}{2}") is True
+
+    def test_caret(self):
+        assert _looks_like_math("2^3") is True
+
+    def test_plain_text(self):
+        assert _looks_like_math("hello") is False
+
+    def test_math_function(self):
+        assert _looks_like_math("sqrt(2)") is True
+
+    def test_log(self):
+        assert _looks_like_math("log(x)") is True
+
+    def test_digit_operator(self):
+        assert _looks_like_math("2+3") is True

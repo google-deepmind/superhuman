@@ -32,18 +32,31 @@ _SYMPY_TIMEOUT_SEC = 5
 def normalize_latex(text: str) -> str:
     """Strip LaTeX delimiters, whitespace, and trailing punctuation."""
     text = text.strip()
-    # Strip trailing punctuation before removing $ delimiters,
+    # Strip trailing punctuation before removing delimiters,
     # since periods often appear outside: "$x+1$."
     text = text.rstrip(".")
     text = text.strip()
+    # Remove $ delimiters
     text = re.sub(r"^\$+|\$+$", "", text)
+    # Remove \( \) and \[ \] delimiters (common in LLM outputs)
+    text = re.sub(r"^\\\(|\\\)$", "", text)
+    text = re.sub(r"^\\\[|\\\]$", "", text)
     text = text.strip()
     return text
 
 
 def _looks_like_math(text: str) -> bool:
-    """Heuristic check for LaTeX math notation."""
-    return bool(re.search(r"[\\^_{}]", text))
+    """Heuristic check for LaTeX math notation or math-like content."""
+    # LaTeX commands, superscripts, subscripts, braces
+    if re.search(r"[\\^_{}]", text):
+        return True
+    # Common math function names
+    if re.search(r"\b(sqrt|log|ln|sin|cos|tan|exp|lim|sum|prod)\b", text):
+        return True
+    # Expressions with operators between digits/variables
+    if re.search(r"\d\s*[+\-*/]\s*\d", text):
+        return True
+    return False
 
 
 def _split_multi_answer(text: str) -> list[str]:

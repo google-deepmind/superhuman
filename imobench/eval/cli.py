@@ -55,12 +55,27 @@ def main(argv: list[str] | None = None) -> None:
 
     args = parser.parse_args(argv)
 
-    predictions = load_predictions(args.predictions)
+    try:
+        predictions = load_predictions(args.predictions)
+    except FileNotFoundError:
+        print(f"Error: File not found: {args.predictions}", file=sys.stderr)
+        sys.exit(1)
+    except ValueError as e:
+        print(f"Error: {e}", file=sys.stderr)
+        sys.exit(1)
+
     if not predictions:
         print("Error: No predictions loaded.", file=sys.stderr)
         sys.exit(1)
 
-    results = evaluate_predictions(predictions, args.answerbench)
+    try:
+        results = evaluate_predictions(predictions, args.answerbench)
+    except FileNotFoundError:
+        print(
+            f"Error: Answerbench not found: {args.answerbench}",
+            file=sys.stderr,
+        )
+        sys.exit(1)
     metrics = compute_metrics(results)
 
     if args.format == "json":

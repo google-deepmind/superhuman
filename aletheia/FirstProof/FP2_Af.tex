@@ -1,0 +1,190 @@
+\documentclass{article}
+\usepackage{geometry}
+\usepackage{graphicx, url, hyperref, amsmath, amssymb, mathtools, comment, xcolor}
+\usepackage{amsthm}
+\usepackage[most]{tcolorbox}
+\tcbuselibrary{skins, breakable}
+\usepackage[shortlabels]{enumitem}
+\usepackage{mathscinet} % for \Dbar
+\usepackage{caption}
+\usepackage{booktabs}
+\usepackage{tabularx}
+
+% Geometry settings
+\geometry{margin=1.5in}
+
+% --- Theorems and Styles ---
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{claim}{Claim}
+
+\theoremstyle{definition}
+\newtheorem*{example}{Example}
+\newtheorem{remark}{Remark}[section]
+\newtheorem{definition}[theorem]{Definition}
+
+% --- Custom Commands ---
+\newcommand{\Aletheia}{\emph{Aletheia}}
+\renewcommand{\comment}[1]{\marginpar{{\tiny{#1}\normalfont\par}}}
+\newcommand{\tony}[1]{{\color{red}Tony: #1}}
+
+% --- Defined Colors ---
+\definecolor{boxblue}{RGB}{0, 0, 150}
+\definecolor{boxback}{RGB}{245, 245, 255}
+
+% --- The Problem Environment ---
+\newtcolorbox{problem}[1]{%
+    colback=boxback,
+    colframe=boxblue,
+    fonttitle=\bfseries\large,
+    title={#1},
+    sharp corners,
+    enhanced,
+    attach boxed title to top left={yshift=-2mm, xshift=2mm},
+    boxed title style={colframe=boxblue, colback=boxblue},
+    before skip=15pt plus 2pt,
+    after skip=15pt plus 2pt,
+    top=10pt, bottom=10pt, left=10pt, right=10pt
+}
+
+\newtcolorbox{solution}[1]{%
+    colback=white,
+    colframe=boxblue,
+    fonttitle=\bfseries\large,
+    title={#1},
+    sharp corners,
+    enhanced jigsaw, % Better frame handling for page breaks than just 'enhanced'
+    breakable,       % <--- Allows the box to split across pages
+    attach boxed title to top left={yshift=-2mm, xshift=2mm},
+    boxed title style={colframe=boxblue, colback=boxblue},
+    before skip=15pt plus 2pt,
+    after skip=15pt plus 2pt,
+    top=10pt, bottom=10pt, left=10pt, right=10pt
+}
+
+
+\date{}
+
+
+\begin{document}
+\emph{The prompts and responses below have been edited only for
+formatting compatibility.}
+
+\begin{problem}{FirstProof \# 2}
+    Let \(F\) be a non-archimedean local field with ring of integers \(\mathfrak o\).  Let $N_r$ denote the subgroup of $\mathrm{GL}_{r}(F)$ consisting of upper-triangular unipotent elements.  Let \(\psi:F\to \mathbb C^\times\) be a nontrivial additive character of conductor \(\mathfrak o\), identified in the standard way with a generic character of $N_r$.
+Let \(\Pi\) be a generic irreducible admissible representation of \(\mathrm{GL}_{n + 1}(F)\), realized in its \(\psi^{-1}\)-Whittaker model \(\mathcal W(\Pi,\psi^{-1})\).  Must there exist \(W\in \mathcal W(\Pi,\psi^{-1})\) with the following property?
+
+Let $\pi$ be a generic irreducible admissible representation of \(\mathrm{GL}_{n}(F)\), realized in its $\psi$-Whittaker model \(\mathcal W(\pi,\psi)\).  Let $\mathfrak{q}$ denote the conductor ideal of $\pi$, let \(Q\in F^\times\) be a generator of \(\mathfrak q^{-1}\), and set
+\[
+  u_Q := I_{n+1} + Q\,E_{n,n+1} \in \mathrm{GL}_{n + 1}(F),
+\]
+where \(E_{i, j}\) is the matrix with a \(1\) in the \((i, j)\)-entry and \(0\) elsewhere.  For some \(V\in \mathcal W(\pi,\psi)\), the local Rankin--Selberg integral
+\[
+  \int_{N_n\backslash \mathrm{GL}_{n}(F)} W(\operatorname{diag}(g,1) u_Q)\,V(g)\,|\det g|^{s-\frac12}\,dg
+\]
+is finite and nonzero for all \(s\in\mathbb C\).
+\end{problem}
+
+\begin{solution}{Model Response (Agent A$\mf{f}$)}
+
+\section*{1. Introduction and the Universal Test Vector}
+
+Let $F$ be a non-archimedean local field with ring of integers $\mathfrak{o}$, maximal ideal $\mathfrak{p}$, and a fixed uniformizer $\varpi$. Let $G_n = \mathrm{GL}_n(F)$ and let $K_n = \mathrm{GL}_n(\mathfrak{o})$ denote the standard maximal compact subgroup. Let $N_k(F)$ signify the subgroup of upper-triangular unipotent matrices in $\mathrm{GL}_k(F)$. We are given a non-trivial additive character $\psi: F \to \mathbb{C}^\times$ structurally mapped with a conductor exactly $\mathfrak{o}$.
+
+Because $\psi$ has conductor $\mathfrak{o}$, its inverse character $\psi^{-1}$ evaluates identically to $1$ on the compact open unipotent intersection $N_n(\mathfrak{o}) = N_n(F) \cap K_n$. By the Iwasawa decomposition $G_n = N_n(F) A_n(F) K_n$, the double coset $N_n(F) K_n$ forms an open and closed topological subspace of $G_n$. We may therefore define a smooth, locally constant test function $\Phi : G_n \to \mathbb{C}$ identically supported on $N_n(F) K_n$ by setting:
+\[
+  \Phi(n k) = \psi^{-1}(n) \quad \text{for } n \in N_n(F), \ k \in K_n.
+\]
+This function is unequivocally well-defined: if $n_1 k_1 = n_2 k_2$, then $n_2^{-1} n_1 = k_2 k_1^{-1} \in N_n(\mathfrak{o})$, upon which $\psi^{-1}$ is structurally trivial. Modulo left translation by $N_n(F)$, the support of $\Phi$ natively corresponds to the compact quotient $N_n(\mathfrak{o}) \backslash K_n$. Consequently, $\Phi$ functions as a naturally defined element of the Schwartz space $C_c^\infty(N_n(F) \backslash G_n, \psi^{-1})$.
+
+By the exactness of the mirabolic restriction functor in the foundational theory of the Kirillov model (I. N. Bernstein and A. V. Zelevinsky, \textit{Representations of the group $\mathrm{GL}(n, F)$, where $F$ is a local non-Archimedean field}, 1976), the restriction map $\left. W \mapsto W \right|_{G_n}$ from the Whittaker model $\mathcal{W}(\Pi, \psi^{-1})$ strictly contains the compactly supported space $C_c^\infty(N_n(F) \backslash G_n, \psi^{-1})$. Thus, we may fix a universally valid test vector $W \in \mathcal{W}(\Pi, \psi^{-1})$ definitively satisfying:
+\[
+  W(\operatorname{diag}(g, 1)) = \Phi(g) \quad \text{for all } g \in G_n.
+\]
+
+\section*{2. Annihilation of Analytic Dependence on $s$}
+
+Let $\pi$ be a generic irreducible admissible representation of $G_n$, and let $\mathfrak{q}$ denote its conductor ideal. For any $g \in G_n$, we evaluate $W$ on the shifted unipotent element $\operatorname{diag}(g, 1) u_Q$, where $u_Q = I_{n+1} + Q E_{n, n+1}$ and $Q \in F^\times$ generates $\mathfrak{q}^{-1}$. Matrix block multiplication factorizes this sequentially as:
+\[
+  \operatorname{diag}(g, 1) u_Q = v_Q(g) \operatorname{diag}(g, 1), \quad \text{where } v_Q(g) = I_{n+1} + Q \sum_{i=1}^n g_{i,n} E_{i, n+1}.
+\]
+The extracted matrix $v_Q(g)$ natively resides in $N_{n+1}(F)$. Its superdiagonal entries strictly vanish everywhere except precisely at the index $(n, n+1)$, which maps to $Q g_{n,n}$. Because $W$ transforms equivariantly under left translation by $N_{n+1}(F)$ via $\psi^{-1}$, isolating the additive phase algebraically yields:
+\[
+  W(\operatorname{diag}(g, 1) u_Q) = \psi^{-1}(v_Q(g)) W(\operatorname{diag}(g, 1)) = \psi^{-1}(Q g_{n,n}) \Phi(g).
+\]
+
+Substituting this universal test vector $W$ into the local Rankin--Selberg integral $I(s)$ against an arbitrary generic vector $V \in \mathcal{W}(\pi, \psi)$ gives:
+\[
+  I(s) = \int_{N_n(F) \backslash G_n} \Phi(g) \psi^{-1}(Q g_{n,n}) V(g) |\det g|^{s-1/2} \, d\dot{g}.
+\]
+Because $\Phi(g)$ actively forces the integration domain to rigidly collapse onto the orbit $N_n(F) K_n$, any representative factoring as $g = nk \in N_n(F) K_n$ automatically satisfies $|\det g| = |\det n| |\det k| = 1$. The integral completely sheds all analytic dependence on the parameter $s$.
+
+Furthermore, utilizing the transformation properties $\Phi(nk) = \psi^{-1}(n)\Phi(k)$ and $V(nk) = \psi(n)V(k)$, the translation phases cleanly cancel. This guarantees that the integrand $F(k) = \psi^{-1}(Q k_{n,n}) V(k)$ is definitively left $N_n(\mathfrak{o})$-invariant. Applying the standard quotient integral formula relating Haar measures for an integrand defined natively on $K_n$ to the quotient, we smoothly transition the domain:
+\[
+  \int_{K_n} F(k) \, dk = \int_{N_n(\mathfrak{o}) \backslash K_n} \left( \int_{N_n(\mathfrak{o})} F(n k) \, dn \right) d\dot{k} = \operatorname{vol}(N_n(\mathfrak{o})) \int_{N_n(\mathfrak{o}) \backslash K_n} F(\dot{k}) \, d\dot{k}.
+\]
+Defining the non-zero volume constant $C = \operatorname{vol}(N_n(\mathfrak{o}))^{-1} > 0$ and designating $f(k) = \psi^{-1}(Q k_{n,n})$, the shifted local Rankin--Selberg integral flawlessly descends to a purely $s$-independent compact functional smoothly mapped over $K_n$:
+\[
+  I(s) = C \int_{K_n} f(k) V(k) \, dk.
+\]
+
+\section*{3. Exact Non-Vanishing}
+
+Let $c \ge 0$ denote the exact conductor exponent of $\pi$, such that $\mathfrak{q} = \mathfrak{p}^c$. We partition the evaluation cleanly based on $c$.
+
+\subsection*{3.1. The Unramified Case ($c = 0$)}
+If $c = 0$, the conductor natively resolves to $\mathfrak{o}$, meaning $Q \in \mathfrak{o}^\times$. Since $k_{n,n} \in \mathfrak{o}$ for all $k \in K_n$ and $\psi^{-1}$ vanishes natively on $\mathfrak{o}$, the phase trivializes perfectly to $f(k) \equiv 1$. Selecting $V$ as the unramified spherical vector $V_{\mathrm{sph}} \in \mathcal{W}(\pi, \psi)$ normalized to $V_{\mathrm{sph}}(I_n) = 1$, we systematically obtain $V_{\mathrm{sph}}(k) = 1$ uniformly over $K_n$. The functional strictly extracts $I(s) = C \operatorname{vol}(K_n) \neq 0$.
+
+\subsection*{3.2. Finite Fourier Analysis of Functional Subspaces ($c \ge 1$)}
+Assume $c \ge 1$. We uniquely factorize the generator as $Q = u_0 \varpi^{-c}$ for some valid unit $u_0 \in \mathfrak{o}^\times$. Define the standard principal compact congruence subgroup corresponding to the terminal row:
+\[
+  H_c = K_1(\mathfrak{p}^c) = \{ x \in K_n \mid e_n^T x \equiv e_n^T \pmod{\mathfrak{p}^c} \}.
+\]
+For any $h \in H_c$ and $k \in K_n$, matrix multiplication enforces $(hk)_{n,n} \equiv k_{n,n} \pmod{\mathfrak{p}^c}$. This ensures $Q(hk)_{n,n} - Qk_{n,n} \in \mathfrak{o}$, strictly forcing $f(hk) = f(k)$. As a strongly left $H_c$-invariant function, $f$ seamlessly bounds itself into $L^2(X_c)$, where $X_c = H_c \backslash K_n$.
+
+The natural projection map $k \mapsto e_n^T k \pmod{\mathfrak{p}^c}$ canonically bijects $X_c$ to the finite discrete set of primitive row vectors $M_{\mathrm{prim}}$ residing inside the module $M = (\mathfrak{o}/\mathfrak{p}^c)^n$. Mapped under this exact isomorphism, $f(v) = \psi^{-1}(u_0 \varpi^{-c} v_n)$. Let $V_f \subset L^2(X_c)$ map the cyclic right $K_n$-module natively generated by $f$. Taking right translations evaluates $f(vk) = \psi^{-1}(\varpi^{-c} v \cdot w)$, where $w = u_0 k e_n \pmod{\mathfrak{p}^c}$. Because $k$ transverses $K_n$, $w$ bijectively bounds all primitive column vectors in $M$. Hence, $V_f$ rigorously spans the restricted characters $\chi_w(v) = \psi^{-1}(\varpi^{-c} v \cdot w)$ along all completely primitive vectors $w \in M_{\mathrm{prim}}$.
+
+Let $L^2(X_{c-1})$ detail the corresponding explicit subspace of functions strictly pulled back from left-invariance under $H_{c-1}$. Translated onto $M_{\mathrm{prim}}$, the subspace $L^2(X_{c-1})$ elegantly mirrors the span of restricted characters $\chi_{w'}|_{M_{\mathrm{prim}}}$ defined exactly on non-primitive vectors $w' \in \mathfrak{p}M$.
+
+For $c \ge 2$, we mathematically assert exact orthogonality $V_f \perp L^2(X_{c-1})$. Computing the robust $L^2$ inner product over $M_{\mathrm{prim}} = M \setminus \mathfrak{p}M$ between a primitive character $\chi_w$ and a non-primitive character $\chi_{w'}$ yields:
+\[
+  \langle \chi_w, \chi_{w'} \rangle = \sum_{v \in M} \psi^{-1}(\varpi^{-c} v \cdot (w - w')) - \sum_{y \in (\mathfrak{o}/\mathfrak{p}^{c-1})^n} \psi^{-1}(\varpi^{-(c-1)} y \cdot (w - w')).
+\]
+Because $w$ is explicitly primitive and $w' \in \mathfrak{p}M$, the vector disparity $w - w'$ remains absolutely primitive. Thus, $v \mapsto \psi^{-1}(\varpi^{-c} v \cdot (w-w'))$ acts as an intrinsically non-trivial character across the abelian group $M$, unconditionally evaluating the first sum to $0$. Upon restricting into the non-primitive subset $\mathfrak{p}M$, the corresponding character on $(\mathfrak{o}/\mathfrak{p}^{c-1})^n$ continues to assert non-trivial behavior because $c \ge 2$ and $w - w' \not\equiv 0 \pmod{\mathfrak{p}}$. This unconditionally zeroes the second sum, verifying the exact orthogonal decomposition $L^2(X_c) = V_f \oplus L^2(X_{c-1})$.
+
+\textit{(For the explicit boundary case $c = 1$, summing over primitive $\chi_w$ identically yields $-1$ for any given element. This intrinsically verifies that the constant function $\mathbf{1} \in V_f$, securely confirming $V_f = L^2(X_1)$ inherently covers the space).}
+
+\subsection*{3.3. Provable Non-Vanishing via Frobenius Reciprocity}
+By the core theory of essential local newforms (H. Jacquet, I. I. Piatetski-Shapiro, and J. A. Shalika, \textit{Conducteur des repr\'esentations du groupe lin\'eaire}, Math. Ann., 1981), $\pi$ uniquely houses an essential Whittaker newform $V_0$ fundamentally right-invariant under $H_c$, successfully normalized such that $V_0(I_n) = 1$. Most definitively, because the true algorithmic conductor ideal aligns perfectly with exactly $\mathfrak{p}^c$, $\pi$ analytically houses strictly zero vectors invariant under $H_{c-1}$.
+
+Deploy the bounded $K_n$-equivariant left-averaging projection mapping $P_c : \pi|_{K_n} \to L^2(X_c)$ characterized by:
+\[
+  (P_c V)(k) = \frac{1}{\operatorname{vol}(H_c)} \int_{H_c} V(h k) \, dh.
+\]
+Let $M_V = P_c(\pi|_{K_n})$ cleanly map its extracted right $K_n$-submodule image. Because $V_0$ behaves completely right $H_c$-invariant, $(P_c V_0)(I_n) = V_0(I_n) = 1$, practically verifying $M_V \neq \{0\}$.
+
+Assume for mathematical contradiction that $M_V \perp f$. Since $M_V$ acts naturally as a fully generic right $K_n$-module, this safely dictates unconditionally $M_V \perp V_f$. For $c \ge 2$, this locks the orthogonal restriction $M_V \subset L^2(X_{c-1}) \cong \operatorname{Ind}_{H_{c-1}}^{K_n}(\mathbf{1})$. (For $c=1$, it explicitly forces $M_V = \{0\}$, contradicting $P_c V_0(I_n) = 1$). Because smooth complex representations of the totally disconnected profinite group $K_n$ are unequivocally completely semisimple, the quotient module $M_V$ injects backwards as a strictly stable right $K_n$-submodule over $\pi|_{K_n}$. Through standard Frobenius reciprocity:
+\[
+ \operatorname{Hom}_{K_n}(M_V, \operatorname{Ind}_{H_{c-1}}^{K_n}(\mathbf{1})) \cong \operatorname{Hom}_{H_{c-1}}(M_V, \mathbf{1}) \neq 0.
+\]
+This mathematically establishes that $M_V$ (and inherently $\pi$) unequivocally possesses a perfectly non-zero vector strictly fixed by $H_{c-1}$, thoroughly contradicting the rigorous primary axiom regarding the exact conductor exponent equaling $c$.
+
+Therefore, $M_V$ strictly cannot be orthogonal to $f$. Necessarily, there inherently exists a generic vector $V \in \mathcal{W}(\pi, \psi)$ dynamically triggering $\int_{K_n} (P_c V)(k) \overline{f(k)} \, dk \neq 0$. Recovering that $\overline{f(k)} = \psi(Q k_{n,n})$ strongly retains heavy left-invariance under $H_c$, deploying Fubini's Theorem functionally processes the internal left-averaging parameter:
+\[
+  \int_{K_n} \left( \frac{1}{\operatorname{vol}(H_c)} \int_{H_c} V(hk) \, dh \right) \overline{f(k)} \, dk = \int_{K_n} V(k) \overline{f(k)} \, dk \neq 0.
+\]
+
+To securely specify the final explicit non-conjugated test vector, we mandate the explicitly right-translated element $V'(g) = V(gD) \in \mathcal{W}(\pi, \psi)$ governed by the involution $D = \operatorname{diag}(1, \dots, 1, -1) \in K_n$. Executing a reliable measure-preserving shift via substitution $k \mapsto k D^{-1}$ faultlessly returns:
+\[
+ \int_{K_n} \psi^{-1}(Q k_{n,n}) V'(k) \, dk = \int_{K_n} \psi^{-1}(Q (k D^{-1})_{n,n}) V(k) \, dk.
+\]
+Noticing that $D^{-1} = D$, applying the internal matrix evaluation distinctly yields $(k D^{-1})_{n,n} = -k_{n,n}$. Thus, the parameters beautifully intertwine to convert $\psi^{-1}(-Q k_{n,n}) = \psi(Q k_{n,n}) = \overline{f(k)}$. It fundamentally resolves as:
+\[
+ \int_{K_n} f(k) V'(k) \, dk = \int_{K_n} \overline{f(k)} V(k) \, dk \neq 0.
+\]
+Consequently, calculated universally against this exactly derived sequence substitution $V' \in \mathcal{W}(\pi, \psi)$, the shifted local Rankin--Selberg integral unequivocally bounds into an analytically $s$-independent, formally explicitly finite, and uniformly non-zero strict evaluation, affirmatively resolving the inquiry.
+\end{solution}
+
+
+\end{document}

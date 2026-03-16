@@ -15,6 +15,13 @@ including Aletheia).
 * A mathematical input to the paper "Strongly polynomial iterations for robust Markov chains" by Asadi–Chatterjee–Goharshady–
 Karrabi–Montaseri–Pagano. It establishes that specific bounded combinations of numbers are in polynomially many dyadic intervals: [tex](ACGKMP/ACGKMP.tex), [pdf](ACGKMP/ACGKMP.pdf) ([full paper](https://arxiv.org/abs/2601.23229)).
 * Generalizations of bounds for independence sets, used to help produce the paper "Lower bounds for multivariate independence polynomials and their generalisations" by Lee and Seo: [tex](LeeSeo26/LeeSeo26.tex), [pdf](LeeSeo26/LeeSeo26.pdf) ([full paper](https://arxiv.org/abs/2602.02450)).
+* Solutions to [FirstProof](https://1stproof.org/) challenge:
+  * Problem 2: A ([tex](FirstProof/FP2_A.tex), [pdf](FirstProof/FP2_A.pdf)), Af ([tex](FirstProof/FP2_Af.tex), [pdf](FirstProof/FP2_Af.pdf)), B ([tex](FirstProof/FP2_B.tex), [pdf](FirstProof/FP2_B.pdf)).
+  * Problem 5: A ([tex](FirstProof/FP5_A.tex), [pdf](FirstProof/FP5_A.pdf)), B ([tex](FirstProof/FP5_B.tex), [pdf](FirstProof/FP5_B.pdf)).
+  * Problem 7: A ([tex](FirstProof/FP7_A.tex), [pdf](FirstProof/FP7_A.pdf)), B ([tex](FirstProof/FP7_B.tex), [pdf](FirstProof/FP7_B.pdf)).
+  * Problem 8: A ([tex](FirstProof/FP8_A.tex), [pdf](FirstProof/FP8_A.pdf)), B ([tex](FirstProof/FP8_B.tex), [pdf](FirstProof/FP8_B.pdf)).
+  * Problem 9: A ([tex](FirstProof/FP9_A.tex), [pdf](FirstProof/FP9_A.pdf)), Af ([tex](FirstProof/FP9_Af.tex), [pdf](FirstProof/FP9_Af.pdf)), B ([tex](FirstProof/FP9_B.tex), [pdf](FirstProof/FP9_B.pdf)).
+  * Problem 10: A ([tex](FirstProof/FP10_A.tex), [pdf](FirstProof/FP10_A.pdf)), B ([tex](FirstProof/FP10_B.tex), [pdf](FirstProof/FP10_B.pdf)).
 
 ## License and disclaimer
 

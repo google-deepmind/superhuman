@@ -1,0 +1,229 @@
+\documentclass{article}
+\usepackage{geometry}
+\usepackage{graphicx, url, hyperref, amsmath, amssymb, mathtools, comment, xcolor}
+\usepackage{amsthm}
+\usepackage[most]{tcolorbox}
+\tcbuselibrary{skins, breakable}
+\usepackage[shortlabels]{enumitem}
+\usepackage{mathscinet} % for \Dbar
+\usepackage{caption}
+\usepackage{booktabs}
+\usepackage{tabularx}
+
+% Geometry settings
+\geometry{margin=1.5in}
+
+% --- Theorems and Styles ---
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{claim}{Claim}
+
+\theoremstyle{definition}
+\newtheorem*{example}{Example}
+\newtheorem{remark}{Remark}[section]
+\newtheorem{definition}[theorem]{Definition}
+
+% --- Custom Commands ---
+\newcommand{\Aletheia}{\emph{Aletheia}}
+\renewcommand{\comment}[1]{\marginpar{{\tiny{#1}\normalfont\par}}}
+\newcommand{\tony}[1]{{\color{red}Tony: #1}}
+
+% --- Defined Colors ---
+\definecolor{boxblue}{RGB}{0, 0, 150}
+\definecolor{boxback}{RGB}{245, 245, 255}
+
+% --- The Problem Environment ---
+\newtcolorbox{problem}[1]{%
+    colback=boxback,
+    colframe=boxblue,
+    fonttitle=\bfseries\large,
+    title={#1},
+    sharp corners,
+    enhanced,
+    attach boxed title to top left={yshift=-2mm, xshift=2mm},
+    boxed title style={colframe=boxblue, colback=boxblue},
+    before skip=15pt plus 2pt,
+    after skip=15pt plus 2pt,
+    top=10pt, bottom=10pt, left=10pt, right=10pt
+}
+
+\newtcolorbox{solution}[1]{%
+    colback=white,
+    colframe=boxblue,
+    fonttitle=\bfseries\large,
+    title={#1},
+    sharp corners,
+    enhanced jigsaw, % Better frame handling for page breaks than just 'enhanced'
+    breakable,       % <--- Allows the box to split across pages
+    attach boxed title to top left={yshift=-2mm, xshift=2mm},
+    boxed title style={colframe=boxblue, colback=boxblue},
+    before skip=15pt plus 2pt,
+    after skip=15pt plus 2pt,
+    top=10pt, bottom=10pt, left=10pt, right=10pt
+}
+
+
+\date{}
+
+
+\begin{document}
+\emph{The prompts and responses below have been edited only for
+formatting compatibility (to compile in a \LaTeX document).}
+
+\begin{problem}{FirstProof \# 9}Let $n \geq 5$.
+Let $A^{(1)}, \ldots, A^{(n)} \in \mathbb{R}^{3 \times 4}$ be Zariski-generic.
+For $\alpha, \beta, \gamma, \delta \in [n]$, construct $Q^{(\alpha \beta \gamma \delta)} \in \mathbb{R}^{3 \times 3 \times 3 \times 3}$ so that its $(i, j, k, \ell)$ entry for $1 \leq i, j, k, \ell \leq 3$ is given by $Q^{(\alpha \beta \gamma \delta)}_{i j k \ell} = \det [A^{(\alpha)}(i, :); A^{(\beta)}(j, :); A^{(\gamma)}(k, :); A^{(\delta)}(\ell, :)]$.
+Here $A(i, :)$ denotes the $i$th row of a matrix $A$, and semicolon denotes vertical concatenation.
+We are interested in algebraic relations on the set of tensors $\{Q^{(\alpha \beta \gamma \delta)} : \alpha, \beta, \gamma, \delta \in [n] \}$.
+
+More precisely, does there exist a polynomial map $\mathbf{F}: \mathbb{R}^{81n^4} \rightarrow \mathbb{R}^N$ that satisfies the following three properties?
+\smallskip
+\begin{itemize}\setlength\itemsep{0.5em}
+\item The map $\mathbf{F}$ does not depend on $A^{(1)}, \ldots A^{(n)}$.
+\item The degrees of the coordinate functions of $\mathbf{F}$ do not depend on $n$.
+\item Let $\lambda \in \mathbb{R}^{n \times n \times n \times n}$ satisfy
+$\lambda_{\alpha \beta \gamma \delta} \neq 0$ for precisely $\alpha, \beta, \gamma, \delta \in [n]$ that are not identical.  Then $\mathbf{F}(\lambda_{\alpha \beta \gamma \delta} Q^{(\alpha \beta \gamma \delta)} : \alpha, \beta, \gamma, \delta \in [n]) = 0$ holds if and only if there exist $u, v, w, x \in (\mathbb{R}^*)^n$ such that $\lambda_{\alpha \beta \gamma \delta} = u_{\alpha} v_{\beta} w_{\gamma} x_{\delta}$ for all $\alpha, \beta, \gamma, \delta \in [n]$ that are not identical.
+\end{itemize}
+\end{problem}
+
+\begin{solution}{Model Response (Agent A$\mathfrak{f}$)}
+
+
+\section{Construction of the Polynomial Map $\mathbf{F}$}
+
+Let $A^{(1)}, \ldots, A^{(n)} \in \mathbb{R}^{3 \times 4}$ be Zariski-generic matrices. We identify the formal input space $\mathbb{R}^{81n^4}$ with the vector space of 4-way tensors $\mathbf{X} \in \mathbb{R}^{3n \times 3n \times 3n \times 3n}$. We index the components of this tensor via composite multi-indices $I = (\alpha, i)$, $J = (\beta, j)$, $K = (\gamma, k)$, and $L = (\delta, \ell)$, where $\alpha, \beta, \gamma, \delta \in [n]$ specify the choice of matrices and $i, j, k, \ell \in \{1, 2, 3\}$ specify their localized row indices. Evaluated over the parameters of the problem, the tensor coordinates map to:
+\[
+\mathbf{X}_{I J K L} = \lambda_{\alpha \beta \gamma \delta} Q^{(\alpha \beta \gamma \delta)}_{i j k \ell} = \lambda_{\alpha \beta \gamma \delta} \det \begin{bmatrix} A^{(\alpha)}(i, :) \\ A^{(\beta)}(j, :) \\ A^{(\gamma)}(k, :) \\ A^{(\delta)}(\ell, :) \end{bmatrix}.
+\]
+
+\begin{remark} \label{rem:identical_tuples}
+We say a parameter tuple $(\alpha, \beta, \gamma, \delta)$ is \emph{monochromatic} if $\alpha = \beta = \gamma = \delta$, and \emph{non-monochromatic} otherwise. For any $\alpha \in [n]$, the array $Q^{(\alpha \alpha \alpha \alpha)}$ evaluates the determinant of a $4 \times 4$ matrix whose four rows are drawn entirely from the same $3 \times 4$ matrix $A^{(\alpha)}$. By the Pigeonhole Principle, at least two of these row choices must evaluate to the identical row of $A^{(\alpha)}$, making the determinant unconditionally vanish. Thus, $Q^{(\alpha \alpha \alpha \alpha)} = 0$ universally.
+
+Consequently, $\mathbf{X}_{I J K L} = 0$ unconditionally for all monochromatic tuples. The problem dictates that $\lambda_{\alpha \beta \gamma \delta} \neq 0$ solely across non-monochromatic configurations; nevertheless, extending the scalar parameters $\lambda_{\alpha \alpha \alpha \alpha}$ arbitrarily over the monochromatic bounds leaves the evaluated tensor $\mathbf{X}$ completely unaltered.
+\end{remark}
+
+We define four principal multilinear matrix flattenings of $\mathbf{X}$, each mapping naturally to a structured matrix of dimensions $3n \times 27n^3$:
+\begin{itemize}\setlength\itemsep{0.2em}
+    \item $M^{(1)}$: Rows indexed by $I$, columns by $C_1 = (J, K, L)$.
+    \item $M^{(2)}$: Rows indexed by $J$, columns by $C_2 = (I, K, L)$.
+    \item $M^{(3)}$: Rows indexed by $K$, columns by $C_3 = (I, J, L)$.
+    \item $M^{(4)}$: Rows indexed by $L$, columns by $C_4 = (I, J, K)$.
+\end{itemize}
+
+\begin{definition}
+We define the polynomial map $\mathbf{F}: \mathbb{R}^{81n^4} \to \mathbb{R}^N$, where $N = 4 \binom{3n}{5} \binom{27n^3}{5}$, such that its coordinate functions evaluate all $5 \times 5$ minors across the four flattenings $M^{(1)}, M^{(2)}, M^{(3)}$, and $M^{(4)}$.
+\end{definition}
+
+This multilinear representation immediately secures the problem's first two requisite properties:
+\begin{itemize}
+    \item \textbf{Property 1:} The coordinate functions of $\mathbf{F}$ are standard determinantal minor expansions evaluated strictly over the formal tensor variables $\mathbf{X}_{I J K L}$. Their coefficients consist exclusively of the constants $\pm 1$ and $0$. Thus, the polynomial map $\mathbf{F}$ operates completely independently of the underlying generic matrices $A^{(1)}, \ldots, A^{(n)}$.
+    \item \textbf{Property 2:} Each coordinate function extracts a $5 \times 5$ minor, rigorously defining it as a homogeneous polynomial of exact degree $5$ over the tensor inputs. This uniform degree is invariant and strictly independent of $n$.
+\end{itemize}
+
+\section{Proof of Property 3: Sufficiency}
+
+Assume there exist scalar vectors $u, v, w, x \in (\mathbb{R}^*)^n$ such that $\lambda_{\alpha \beta \gamma \delta} = u_\alpha v_\beta w_\gamma x_\delta$ holds across all valid non-monochromatic configurations. By Remark \ref{rem:identical_tuples}, since $Q^{(\alpha \alpha \alpha \alpha)} = 0$, applying the identically factored substitution $\lambda_{\alpha \alpha \alpha \alpha} = u_\alpha v_\alpha w_\alpha x_\alpha$ over the excluded monochromatic bounds leaves $\mathbf{X}$ perfectly unaltered. Absorbing these parameters via the multilinearity of the determinant globally yields:
+\[
+\mathbf{X}_{I J K L} = \det \begin{bmatrix} u_\alpha A^{(\alpha)}(i, :) \\ v_\beta A^{(\beta)}(j, :) \\ w_\gamma A^{(\gamma)}(k, :) \\ x_\delta A^{(\delta)}(\ell, :) \end{bmatrix}.
+\]
+For the first flattening $M^{(1)}$, let the localized row vector $U_{I} = u_\alpha A^{(\alpha)}(i, :) \in \mathbb{R}^4$. Expanding the determinant via Laplace expansion along this leading row extracts:
+\[
+M^{(1)}_{I, C_1} = \sum_{m=1}^4 (U_{I})_m \cdot \operatorname{cofactor}_{1,m} \begin{bmatrix} U_I \\ v_\beta A^{(\beta)}(j, :) \\ w_\gamma A^{(\gamma)}(k, :) \\ x_\delta A^{(\delta)}(\ell, :) \end{bmatrix}.
+\]
+The four scalar cofactor terms intrinsically evaluate using exclusively the column configuration $C_1$ and remain completely decoupled from the localized row index $I$. Hence, $M^{(1)}$ structurally factors into the matrix product of a $3n \times 4$ matrix and a $4 \times 27n^3$ matrix. This mathematically guarantees $\operatorname{rank}(M^{(1)}) \le 4$, geometrically forcing all of its $5 \times 5$ minors to evaluate to zero. Symmetric parity across the exterior maps subsequently ensures $\operatorname{rank}(M^{(m)}) \le 4$ for all flattenings $m \in \{1,2,3,4\}$, unconditionally verifying $\mathbf{F}(\mathbf{X}) = \mathbf{0}$.
+
+\section{Proof of Property 3: Necessity}
+
+Assume $\mathbf{F}(\mathbf{X}) = \mathbf{0}$. The universal vanishing of all $5 \times 5$ minors strictly bounds the rank identically as $\operatorname{rank}(M^{(m)}) \le 4$ across all four principal flattenings.
+
+\subsection{Subspace Intersections and the Evaluation Map}
+
+Let $S \subset \mathbb{R}^{27n^3}$ be the row space of $M^{(1)}$, which inherently satisfies $\dim S \le 4$. Let $U_\alpha = \operatorname{rowspan}(A^{(\alpha)}) \subset \mathbb{R}^4$ denote the generic 3-dimensional row space of matrix $A^{(\alpha)}$. We define a linear evaluation map $T_\alpha : U_\alpha \to S$ that maps a generic spatial vector $y = \sum_{i=1}^3 c_i A^{(\alpha)}(i, :) \in U_\alpha$ into the equivalent linear combination of the corresponding rows within $S$. Evaluated locally on a subset of columns forming a fixed block $B = (\beta, \gamma, \delta) \in [n]^3$, this equivalently leverages multilinearity to output:
+\[
+T_\alpha(y)_B = \lambda_{\alpha B} \Psi_B(y), \quad \text{where} \quad \Psi_B(y)_{j k \ell} = \det \begin{bmatrix} y \\ A^{(\beta)}(j, :) \\ A^{(\gamma)}(k, :) \\ A^{(\delta)}(\ell, :) \end{bmatrix},
+\]
+and $\lambda_{\alpha B}$ abbreviates $\lambda_{\alpha \beta \gamma \delta}$. Evaluating $\Psi_B(y) = 0$ is algebraically equivalent to stating that $y \wedge w_1 \wedge w_2 \wedge w_3 = 0$ within the exterior algebra $\Lambda^4 \mathbb{R}^4$ for all valid combinations $w_1 \in U_\beta, w_2 \in U_\gamma, w_3 \in U_\delta$.
+
+\begin{lemma} \label{lem:kernel}
+Let $V = \mathbb{R}^4$, and let $A^{(1)}, \ldots, A^{(n)}$ be generic $3 \times 4$ matrices with row spaces $U_i = \operatorname{rowspan}(A^{(i)})$.
+\begin{enumerate}
+    \item[(i)] If $B = (\beta, \gamma, \delta)$ is non-monochromatic, then $\ker \Psi_B = \{0\}$.
+    \item[(ii)] If $B = (\beta, \beta, \beta)$ is monochromatic, then $\ker \Psi_B = U_\beta$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+The constraint $\Psi_B(y) = 0$ requires $y \wedge w_1 \wedge w_2 \wedge w_3 = 0$ for all $w_1 \in U_\beta, w_2 \in U_\gamma, w_3 \in U_\delta$.
+
+(i) Assume $B$ is non-monochromatic. Since the wedge product is commutative up to sign, we may assume without loss of generality that $\beta \neq \delta$. We consider the structural span of the 2-forms $w_1 \wedge w_2$.
+If $\beta \neq \gamma$, $U_\beta$ and $U_\gamma$ are distinct generic 3-dimensional subspaces intersecting in a 2-dimensional subspace within $V$. Constructing a basis adapted to this intersection yields 6 linearly independent 2-forms, proving the span of $w_1 \wedge w_2$ covers the entirety of $\Lambda^2 V$.
+If $\beta = \gamma$, the span of $w_1 \wedge w_2$ for $w_1, w_2 \in U_\beta$ evaluates exactly to $\Lambda^2 U_\beta$, a 3-dimensional subspace natively housed within $\Lambda^2 V$.
+
+In both cases, the span contains $\Lambda^2 U_\beta$. Consequently, the overarching span of $w_1 \wedge w_2 \wedge w_3$ contains $\Lambda^2 U_\beta \wedge U_\delta$.
+Since $\beta \neq \delta$, the generic 3-dimensional subspaces $U_\beta$ and $U_\delta$ reliably intersect in a 2-dimensional subspace. By decomposing this space as $U_\delta = (U_\beta \cap U_\delta) \oplus \operatorname{span}(v)$ for a specific $v \in U_\delta \setminus U_\beta$, we deduce:
+\[
+\Lambda^2 U_\beta \wedge U_\delta = (\Lambda^2 U_\beta \wedge (U_\beta \cap U_\delta)) \oplus (\Lambda^2 U_\beta \wedge v) = \Lambda^3 U_\beta \oplus (\Lambda^2 U_\beta \wedge v).
+\]
+It is immediate that $\Lambda^3 U_\beta$ is exactly 1-dimensional. Furthermore, since $v \notin U_\beta$, wedging with $v$ injectively maps $\Lambda^2 U_\beta$ into $\Lambda^3 V$, meaning $\Lambda^2 U_\beta \wedge v$ is strictly 3-dimensional. To verify the trivial intersection parity, suppose an element $0 \neq \eta \in \Lambda^3 U_\beta$ satisfies $\eta = \omega \wedge v$ for some $\omega \in \Lambda^2 U_\beta$. Given any $x \in U_\beta$, evaluating $\eta \wedge x = 0$ strictly forces $\omega \wedge x \wedge v = 0$. Since $V = U_\beta \oplus \operatorname{span}(v)$, we must assert $\omega \wedge x = 0$ in $\Lambda^3 U_\beta$ uniformly over all $x \in U_\beta$. The non-degenerate pairing dictates this is only possible if $\omega = 0$, yielding $\eta = 0$, forming a contradiction.
+
+Therefore, the algebraic sum directly establishes itself over $1 + 3 = 4$ dimensions. Because $\dim \Lambda^3 V = 4$, the established span encompasses exactly $\Lambda^3 V$. Enforcing $y \wedge \Omega = 0$ for all valid $\Omega \in \Lambda^3 V$ unconditionally forces $y = 0$.
+
+(ii) If $B = (\beta, \beta, \beta)$, the span corresponding to $w_1 \wedge w_2 \wedge w_3$ converges exclusively to $\Lambda^3 U_\beta$, representing the 1-dimensional volume form bounding $U_\beta$. Resolving $y \wedge \Lambda^3 U_\beta = 0$ structurally enforces $y \in U_\beta$.
+\end{proof}
+
+Given $n \ge 5$, for any isolated generic index $\alpha \in [n]$, we explicitly choose a non-monochromatic block $B = (\sigma, \sigma, \tau)$ mapping elements strictly disjoint from $\alpha$ (requiring exactly $3 \le n$ distinct indices). Because the evaluated tuple $(\alpha, \sigma, \sigma, \tau)$ is strictly non-monochromatic, the premise guarantees $\lambda_{\alpha B} \neq 0$. Bounded against Lemma \ref{lem:kernel}(i), evaluating $T_\alpha(y)_B = 0 \implies y = 0$, validating that $T_\alpha$ is universally injective. Its equivalently mapped image $W_\alpha = T_\alpha(U_\alpha) \subset S$ firmly maintains dimension 3. Anchored dynamically against $\dim S \le 4$, Grassmann's formula for the dimension of subspace intersections necessitates:
+\[
+\dim(W_\alpha \cap W_\mu) = \dim W_\alpha + \dim W_\mu - \dim(W_\alpha + W_\mu) \ge 3 + 3 - 4 = 2 \quad \text{for any } \alpha \neq \mu.
+\]
+
+\subsection{Universal Local Factoring}
+
+Let $E_{\alpha, \mu} = T_\alpha^{-1}(W_\alpha \cap W_\mu) \subset U_\alpha$. Grounded strictly by injectivity, $\dim E_{\alpha, \mu} \ge 2$. For any vector $x \in E_{\alpha, \mu}$, there universally exists a unique vector $y \in U_\mu$ firmly satisfying $T_\alpha(x) = T_\mu(y)$.
+Pivoting on $n \ge 5$, we securely configure a non-monochromatic block $B_0 = (\sigma, \sigma, \tau)$ mutually disjoint from both bounds $\alpha$ and $\mu$ (leveraging exactly $2+2=4 \le n$ indices). Extracting locally outputs $T_\alpha(x)_{B_0} = T_\mu(y)_{B_0}$, mapping identically onto $\lambda_{\alpha B_0} \Psi_{B_0}(x) = \lambda_{\mu B_0} \Psi_{B_0}(y)$.
+
+Applying the multilinearity of $\Psi_{B_0}$ enforces $\Psi_{B_0}(\lambda_{\alpha B_0} x - \lambda_{\mu B_0} y) = 0$. Validating against $\ker \Psi_{B_0} = \{0\}$ and knowing the corresponding scalars unconditionally correspond to non-monochromatic configurations (thus are non-zero), we extract $\lambda_{\alpha B_0} x = \lambda_{\mu B_0} y$. Structuring $c_{\alpha, \mu} = \lambda_{\alpha B_0} / \lambda_{\mu B_0} \neq 0$, we unconditionally isolate $y = c_{\alpha, \mu} x$. Since $y \in U_\mu$ and $c_{\alpha, \mu} \neq 0$, it implies $x \in U_\mu$. Thus, $E_{\alpha, \mu} \subseteq U_\alpha \cap U_\mu$. Bounding the intersection of two generic 3-dimensional spaces in $\mathbb{R}^4$ caps the dimension at exactly 2, ensuring $E_{\alpha, \mu} = U_\alpha \cap U_\mu$.
+
+Using the explicit relation $T_\alpha(x) = T_\mu(c_{\alpha, \mu} x)$, we logically evaluate the mappings globally over a generalized tracking block $B$:
+\[
+T_\alpha(x)_B = T_\mu(c_{\alpha, \mu} x)_B \implies (\lambda_{\alpha B} - c_{\alpha, \mu} \lambda_{\mu B}) \Psi_B(x) = 0 \quad \text{for all } x \in U_\alpha \cap U_\mu.
+\]
+Because $\dim(U_\alpha \cap U_\mu) = 2$, we mathematically isolate the coefficients $\lambda_{\alpha B} = c_{\alpha, \mu} \lambda_{\mu B}$ by filtering against $\ker \Psi_B$:
+\begin{itemize}
+    \item If $B$ is non-monochromatic, $\ker \Psi_B = \{0\}$. Consequently, for any valid non-zero $x \in U_\alpha \cap U_\mu$, resolving $\Psi_B(x) \neq 0$ securely enforces $\lambda_{\alpha B} = c_{\alpha, \mu} \lambda_{\mu B}$.
+    \item If $B = (\beta, \beta, \beta)$ with $\beta \notin \{\alpha, \mu\}$, Lemma \ref{lem:kernel} forces $\ker \Psi_B = U_\beta$. The generic intersection $(U_\alpha \cap U_\mu) \cap U_\beta$ yields exactly dimension $2 + 3 - 4 = 1$. Since $\dim(U_\alpha \cap U_\mu) = 2$, there exists an element $x \in (U_\alpha \cap U_\mu) \setminus U_\beta$, universally validating $\Psi_B(x) \neq 0$. This rigorously forces $\lambda_{\alpha B} = c_{\alpha, \mu} \lambda_{\mu B}$.
+\end{itemize}
+Therefore, the mapped equivalence holds cleanly for all valid evaluations $B \notin \{(\alpha, \alpha, \alpha), (\mu, \mu, \mu)\}$.
+
+To decipher the transitive cocycle condition $c_{\alpha, \nu} = c_{\alpha, \mu} c_{\mu, \nu}$ for three distinct variable indices $\alpha, \mu, \nu \in [n]$, we purposefully select a 2-element non-monochromatic block $B_2 = (\rho, \rho, \kappa)$ mutually disjoint from $\alpha, \mu$, and $\nu$. This geometric verification guarantees applicability because $3+2=5 \le n$. Resolving outside monochromatic boundaries yields $\lambda_{\alpha B_2} = c_{\alpha, \mu} \lambda_{\mu B_2}$, $\lambda_{\mu B_2} = c_{\mu, \nu} \lambda_{\nu B_2}$, and $\lambda_{\alpha B_2} = c_{\alpha, \nu} \lambda_{\nu B_2}$. Directly dividing these inherently non-zero quantities verifies the cocycle property $c_{\alpha, \nu} = c_{\alpha, \mu} c_{\mu, \nu}$.
+
+We define $u_1 = 1$ and $u_\alpha = c_{\alpha, 1}$ for $\alpha \ge 2$, meaning $c_{\alpha, \mu} = u_\alpha / u_\mu$. We securely decouple $Y_B = \lambda_{1 B}$ evaluating $B \neq (1,1,1)$, alongside bounds $Y_{1 1 1} = \lambda_{2, 1, 1, 1} / u_2$. This strictly limits coordinates globally as $\lambda_{\alpha B} = u_\alpha Y_B$ over all non-monochromatic tuples $(\alpha, B)$:
+\begin{itemize}
+    \item Bounding $B \notin \{(1, 1, 1), (\alpha, \alpha, \alpha)\}$, we obtain $\lambda_{\alpha B} = c_{\alpha, 1} \lambda_{1 B} = u_\alpha Y_B$.
+    \item Bounding over $B = (1, 1, 1)$, the evaluated tuple $(\alpha, 1, 1, 1)$ strictly mandates non-monochromatic parity, inherently forcing $\alpha \neq 1$. Fixing $\mu = 2$ (valid using $n \ge 5$), resolving $\alpha \neq 2$ outputs $\lambda_{\alpha, 1, 1, 1} = c_{\alpha, 2} \lambda_{2, 1, 1, 1} = (u_\alpha / u_2) \lambda_{2, 1, 1, 1} = u_\alpha Y_{1 1 1}$. For $\alpha = 2$, identity holds trivially.
+\end{itemize}
+
+Mirroring sequential deductions identically over equivalent matrix flattenings $M^{(2)}$, $M^{(3)}$, and $M^{(4)}$ guarantees the existence of complementary vectors $v, w, x \in (\mathbb{R}^*)^n$ mapped over spatial tracking tensors $Z, P, Q$, uniformly restricting parameters universally across valid subsets:
+\[
+\lambda_{\alpha \beta \gamma \delta} = u_\alpha Y_{\beta \gamma \delta} = v_\beta Z_{\alpha \gamma \delta} = w_\gamma P_{\alpha \beta \delta} = x_\delta Q_{\alpha \beta \gamma}.
+\]
+
+\subsection{Global Connectedness of the Valid Configuration Graph}
+
+Let $\mathcal{T} \subset [n]^4$ denote the discrete subset of exclusively non-monochromatic valid parameter multi-tuples. We formulate the universally normalized relational map $H : \mathcal{T} \to \mathbb{R}$ explicitly by:
+\[
+H(T) = \frac{\lambda_{\alpha \beta \gamma \delta}}{u_\alpha v_\beta w_\gamma x_\delta},
+\]
+evaluated strictly over $T = (\alpha, \beta, \gamma, \delta) \in \mathcal{T}$. Leveraging our preceding factorizations cleanly parses $H(T) = \frac{Y_{\beta \gamma \delta}}{v_\beta w_\gamma x_\delta}$, which is manifestly independent of the leading coordinate $\alpha$. Consequently, $H(T)$ functionally persists invariantly under dynamic shifting of the first localized coordinate element natively assuming the newly formed tuple remains bounded strictly within $\mathcal{T}$. Extrapolating symmetric multilinear independence logically dictates that $H(T)$ is invariant across alterations to any single isolated coordinate, provided the intermediate tuples strictly evaluate inside $\mathcal{T}$.
+
+We conceptualize $\mathcal{T}$ topologically as a configuration graph network connecting multi-tuples differing exactly by a single localized coordinate. The map $H(T)$ evaluates trivially to a constant value across any connected component of this graph. We now strictly establish that $\mathcal{T}$ is entirely globally connected. Let $T \in \mathcal{T}$. Because $T$ is non-monochromatic, it contains at most 3 identical coordinate values.
+\begin{enumerate}
+    \item If $T$ contains exactly 3 identical coordinates (e.g., matching $(a, a, a, b)$ with $a \neq b$), we can shift one of the identical coordinates to a uniquely evaluated constant $c \notin \{a, b\}$. Since $n \ge 5 \ge 3$, such a generic $c$ is universally valid. The resulting adjacent tuple (e.g., $(c, a, a, b)$) inherently remains within $\mathcal{T}$ and correctly houses at most 2 identical coordinates. Thus, every bounded tuple with 3 identical constraints trivially bounds adjacent to a tuple harboring at most 2 identical coordinates.
+    \item Over localized constraints containing at most 2 identical elements, we sequentially alter coordinates one-by-one, scanning left-to-right, to strictly match a non-intersecting distinctly evaluated target sequence, specifically $(1, 2, 3, 4)$. Because $n \ge 5$, such a discrete target sequence is naturally guaranteed to exist. At any traversal step $k \in \{1, 2, 3, 4\}$, the intermediate tuple identically comprises a successfully mapped prefix of length $k$ containing strictly unique target elements, and an unchanged trailing suffix of length $4-k$ natively drawn from the original values of $T$.
+    Because the prefix sequence is constrained to strictly distinct entries, any given element can appear at most \emph{once} across the prefix. Since the foundational original tuple $T$ maintained at most 2 identical evaluations, any mapped element can occur at most \emph{twice} within the unchanged tracking suffix. Consequently, the maximum element occurrence frequency across the entire intermediate tuple rigorously bounds to $1 \text{ (from the distinct prefix)} + 2 \text{ (from the unchanged suffix)} = 3$. This combinatorially ensures that no intermediate topological step can theoretically collapse to a frequency of 4 (identically monochromatic parity), guaranteeing that every sequence transition evaluates safely and dynamically within the strict confines of the valid graph $\mathcal{T}$.
+\end{enumerate}
+
+Since every multi-tuple topologically connects directly to the valid boundary path $(1, 2, 3, 4)$, the entire configuration graph $\mathcal{T}$ is globally connected. Therefore, the function $H(T)$ equates universally to a non-zero symmetric mapping scalar $K$ exclusively over all strictly valid configurations $T \in \mathcal{T}$. Scaling out the identity via $u_\alpha \leftarrow K u_\alpha$ rigorously establishes that $\lambda_{\alpha \beta \gamma \delta} = u_\alpha v_\beta w_\gamma x_\delta$ identically bridges all generic, non-monochromatic parameterizations. This fully satisfies Property 3 and conclusively completes the proof.
+
+\end{solution}
+
+\end{document}

@@ -1,0 +1,187 @@
+\documentclass{article}
+\usepackage{geometry}
+\usepackage{graphicx, url, hyperref, amsmath, amssymb, mathtools, comment, xcolor}
+\usepackage{amsthm}
+\usepackage[most]{tcolorbox}
+\tcbuselibrary{skins, breakable}
+\usepackage[shortlabels]{enumitem}
+\usepackage{mathscinet} % for \Dbar
+\usepackage{caption}
+\usepackage{booktabs}
+\usepackage{tabularx}
+
+% Geometry settings
+\geometry{margin=1.5in}
+
+% --- Theorems and Styles ---
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{claim}{Claim}
+
+\theoremstyle{definition}
+\newtheorem*{example}{Example}
+\newtheorem{remark}{Remark}[section]
+\newtheorem{definition}[theorem]{Definition}
+
+% --- Custom Commands ---
+\newcommand{\Aletheia}{\emph{Aletheia}}
+\renewcommand{\comment}[1]{\marginpar{{\tiny{#1}\normalfont\par}}}
+\newcommand{\tony}[1]{{\color{red}Tony: #1}}
+
+% --- Defined Colors ---
+\definecolor{boxblue}{RGB}{0, 0, 150}
+\definecolor{boxback}{RGB}{245, 245, 255}
+
+% --- The Problem Environment ---
+\newtcolorbox{problem}[1]{%
+    colback=boxback,
+    colframe=boxblue,
+    fonttitle=\bfseries\large,
+    title={#1},
+    sharp corners,
+    enhanced,
+    attach boxed title to top left={yshift=-2mm, xshift=2mm},
+    boxed title style={colframe=boxblue, colback=boxblue},
+    before skip=15pt plus 2pt,
+    after skip=15pt plus 2pt,
+    top=10pt, bottom=10pt, left=10pt, right=10pt
+}
+
+\newtcolorbox{solution}[1]{%
+    colback=white,
+    colframe=boxblue,
+    fonttitle=\bfseries\large,
+    title={#1},
+    sharp corners,
+    enhanced jigsaw, % Better frame handling for page breaks than just 'enhanced'
+    breakable,       % <--- Allows the box to split across pages
+    attach boxed title to top left={yshift=-2mm, xshift=2mm},
+    boxed title style={colframe=boxblue, colback=boxblue},
+    before skip=15pt plus 2pt,
+    after skip=15pt plus 2pt,
+    top=10pt, bottom=10pt, left=10pt, right=10pt
+}
+
+
+\date{}
+
+
+\begin{document}
+\emph{The prompts and responses below have been edited only for
+formatting compatibility (to compile in a \LaTeX document).}
+
+\begin{problem}{FirstProof \# 2}
+    Let \(F\) be a non-archimedean local field with ring of integers \(\mathfrak o\).  Let $N_r$ denote the subgroup of $\mathrm{GL}_{r}(F)$ consisting of upper-triangular unipotent elements.  Let \(\psi:F\to \mathbb C^\times\) be a nontrivial additive character of conductor \(\mathfrak o\), identified in the standard way with a generic character of $N_r$.
+Let \(\Pi\) be a generic irreducible admissible representation of \(\mathrm{GL}_{n + 1}(F)\), realized in its \(\psi^{-1}\)-Whittaker model \(\mathcal W(\Pi,\psi^{-1})\).  Must there exist \(W\in \mathcal W(\Pi,\psi^{-1})\) with the following property?
+
+Let $\pi$ be a generic irreducible admissible representation of \(\mathrm{GL}_{n}(F)\), realized in its $\psi$-Whittaker model \(\mathcal W(\pi,\psi)\).  Let $\mathfrak{q}$ denote the conductor ideal of $\pi$, let \(Q\in F^\times\) be a generator of \(\mathfrak q^{-1}\), and set
+\[
+  u_Q := I_{n+1} + Q\,E_{n,n+1} \in \mathrm{GL}_{n + 1}(F),
+\]
+where \(E_{i, j}\) is the matrix with a \(1\) in the \((i, j)\)-entry and \(0\) elsewhere.  For some \(V\in \mathcal W(\pi,\psi)\), the local Rankin--Selberg integral
+\[
+  \int_{N_n\backslash \mathrm{GL}_{n}(F)} W(\operatorname{diag}(g,1) u_Q)\,V(g)\,|\det g|^{s-\frac12}\,dg
+\]
+is finite and nonzero for all \(s\in\mathbb C\).
+\end{problem}
+
+\begin{solution}{Model Response (Agent A)}
+
+\section*{Introduction}
+Let $F$ be a non-archimedean local field with ring of integers $\mathfrak{o}$ and maximal ideal $\mathfrak{p}$. We fix a uniformizer $\varpi \in \mathfrak{p}$ and let $q = |\mathfrak{o}/\mathfrak{p}|$. Let $N_r$ denote the subgroup of $\mathrm{GL}_r(F)$ consisting of upper-triangular unipotent elements, and let $K_r = \mathrm{GL}_r(\mathfrak{o})$ denote the standard maximal compact subgroup. Let $\psi: F \to \mathbb{C}^\times$ be a fixed nontrivial additive character of conductor $\mathfrak{o}$.
+
+\begin{theorem}
+Let $\Pi$ be a generic irreducible admissible representation of $\mathrm{GL}_{n+1}(F)$. There exists $W \in \mathcal{W}(\Pi, \psi^{-1})$ such that for any generic irreducible admissible representation $\pi$ of $\mathrm{GL}_n(F)$ with conductor ideal $\mathfrak{q}$, and any generator $Q \in F^\times$ of $\mathfrak{q}^{-1}$, there exists $V \in \mathcal{W}(\pi, \psi)$ such that the local Rankin--Selberg integral
+\[
+  Z(s, W, V) = \int_{N_n\backslash \mathrm{GL}_{n}(F)} W(\operatorname{diag}(g,1) u_Q)\,V(g)\,|\det g|^{s-\frac12}\,dg
+\]
+is finite and nonzero for all $s\in\mathbb C$, where $u_Q = I_{n+1} + Q\,E_{n,n+1}$.
+\end{theorem}
+
+\begin{proof}
+\textbf{Step 1: Gelfand--Kazhdan restriction and $s$-independence.}
+
+We evaluate the right translation of $W$ by $u_Q$. Block matrix multiplication yields
+\[
+  \operatorname{diag}(g, 1) u_Q = U_Q \operatorname{diag}(g, 1), \quad \text{where} \quad U_Q = I_{n+1} + Q \sum_{i=1}^n g_{i,n} E_{i, n+1}.
+\]
+Because $U_Q \in N_{n+1}$ and its only superdiagonal entry (i.e., immediately above the main diagonal) is located at $(n, n+1)$ with value $Q g_{n,n}$, the left $N_{n+1}$-equivariance of the Whittaker model $\mathcal{W}(\Pi, \psi^{-1})$ entails
+\[
+  W(\operatorname{diag}(g, 1) u_Q) = \psi^{-1}(Q g_{n,n}) W(\operatorname{diag}(g, 1)) = \psi(-Q g_{n,n}) W(\operatorname{diag}(g, 1)).
+\]
+By the Gelfand--Kazhdan restriction theory for the Kirillov model (H.\ Jacquet, I.\ I.\ Piatetski-Shapiro, and J.\ A.\ Shalika, \textit{Rankin--Selberg Convolutions}, 1983), the restriction map $\left.W \mapsto W\right|_{\mathrm{GL}_n(F)}$ surjects onto a space of functions containing $\mathcal{C}_c^\infty(N_n \backslash \mathrm{GL}_n(F), \psi^{-1})$.
+
+We define a smooth cut-off function $\Phi \in \mathcal{C}_c^\infty(N_n \backslash \mathrm{GL}_n(F), \psi^{-1})$ supported precisely on the open and closed double coset $N_n K_n$ by setting $\Phi(n k) = \psi^{-1}(n)$ for $n \in N_n$ and $k \in K_n$, and extending it by zero elsewhere. This is well-defined because $\psi$ is trivial on the intersection $N_n \cap K_n = N_n \cap \mathrm{GL}_n(\mathfrak{o})$. We fix a choice of $W \in \mathcal{W}(\Pi, \psi^{-1})$ satisfying $W(\operatorname{diag}(g, 1)) = \Phi(g)$.
+
+Substituting this test vector $W$ restricts the domain of integration strictly to the compact quotient $N_n \backslash N_n K_n \simeq (N_n \cap K_n) \backslash K_n$. For $k \in K_n$, we have $|\det k| = 1$, which completely eliminates the complex parameter $s$. Normalizing the quotient measure appropriately, the integral converges absolutely to a finite, $s$-independent functional:
+\[
+  L_Q(V) = \int_{K_n} \psi(-Q k_{n,n}) V(k) \, dk.
+\]
+We are reduced to showing that there exists $V \in \mathcal{W}(\pi, \psi)$ such that $L_Q(V) \neq 0$.
+
+\textbf{Step 2: The unramified case ($c=0$).}
+
+If $\pi$ is unramified, its conductor ideal is $\mathfrak{q} = \mathfrak{o}$, meaning $Q \in \mathfrak{o}^\times$. We evaluate the functional on the normalized spherical vector $V = V_0$, which satisfies $V_0(k) = 1$ for all $k \in K_n$. Since $k_{n,n} \in \mathfrak{o}$ and $Q \in \mathfrak{o}^\times$, we have $-Q k_{n,n} \in \mathfrak{o}$. Because the additive character $\psi$ has conductor $\mathfrak{o}$, it follows that $\psi(-Q k_{n,n}) = 1$. The functional thus yields $L_Q(V_0) = \operatorname{vol}(K_n) > 0$.
+
+\textbf{Step 3: Finite Fourier analysis setup ($c \ge 1$).}
+
+Assume $\pi$ has conductor $\mathfrak{q} = \mathfrak{p}^c$ with $c \ge 1$. Here, $Q = \alpha \varpi^{-c}$ for some unit $\alpha \in \mathfrak{o}^\times$. Let $V_0 \in \mathcal{W}(\pi, \psi)$ be the essential newform, properly normalized so that $V_0(I_n) = 1$.
+
+Suppose, for the sake of contradiction, that $L_Q(\pi(h^{-1}) V_0) = 0$ for all $h \in K_n$. Evaluating the functional and making the change of variables $k \mapsto k h$ yields:
+\[
+  \int_{K_n} \psi(-Q (k h)_{n,n}) V_0(k) \, dk = 0 \quad \text{for all } h \in K_n.
+\]
+Let $e_n = (0, \dots, 0, 1)$ be viewed as a row vector in $\mathfrak{o}^n$. Then $(k h)_{n,n} = e_n k h e_n^T = (e_n k) y$, where $y = h e_n^T$ is a column vector. As $h$ traverses $K_n$, the vector $y$ traverses all unimodular column vectors in $\mathfrak{o}^n$.
+
+Because $Q = \alpha \varpi^{-c}$, the value $\psi(-Q(e_n k) y)$ depends on the row vector $e_n k$ exclusively modulo $\mathfrak{p}^c$. We descend to the finite quotient module $G = (\mathfrak{o}/\mathfrak{p}^c)^n$ by defining a function $H : G \to \mathbb{C}$ as follows:
+\[
+  H(\eta) = \int_{\{k \in K_n : e_n k \equiv \eta \pmod{\mathfrak{p}^c}\}} V_0(k) \, dk.
+\]
+If $\eta$ does not lift to a unimodular vector in $\mathfrak{o}^n$, the domain of integration is empty, forcing $H(\eta) = 0$. The vanishing assumption dictates that the finite Fourier transform of $H$ is identically zero on all unimodular vectors $y \in G$:
+\[
+  \widehat{H}(y) = \sum_{\eta \in G} H(\eta) \psi(-Q \eta y) = 0.
+\]
+
+\textbf{Step 4: Fourier inversion and translation invariance.}
+
+Since $\widehat{H}(y) = 0$ for all unimodular $y$, the support of $\widehat{H}$ is restricted to non-unimodular vectors. Over the finite module $G$, a vector is non-unimodular if and only if all its entries belong to $\mathfrak{p}/\mathfrak{p}^c$, meaning $\widehat{H}$ is supported entirely on $\mathfrak{p}G$.
+
+Applying the Fourier inversion formula over $G$, we obtain:
+\[
+  H(\eta) = \frac{1}{|G|} \sum_{y \in \mathfrak{p}G} \widehat{H}(y) \psi(Q \eta y).
+\]
+Let $y \in \mathfrak{p}G$, guaranteeing $y = \varpi z$ for some column vector $z \in (\mathfrak{o}/\mathfrak{p}^{c-1})^n$. For an arbitrary shift $\delta \in \mathfrak{p}^{c-1}G$, we may write $\delta = \varpi^{c-1} x$ with a row vector $x \in G$. The inner product computes as:
+\[
+  Q \delta y = (\alpha \varpi^{-c}) (\varpi^{c-1} x) (\varpi z) = \alpha x z \in \mathfrak{o}.
+\]
+Because the additive character $\psi$ has conductor $\mathfrak{o}$, we deduce $\psi(Q \delta y) = \psi(\alpha x z) = 1$. The additive character thus neutralizes the shift, giving $\psi(Q(\eta + \delta) y) = \psi(Q \eta y)$. Consequently, $H(\eta)$ exhibits translation invariance:
+\[
+  H(\eta + \delta) = H(\eta) \quad \text{for all } \delta \in \mathfrak{p}^{c-1}G.
+\]
+
+\textbf{Step 5: Level lowering and contradiction.}
+
+We evaluate $H(e_n)$. The domain of integration enforces the condition $e_n k \equiv e_n \pmod{\mathfrak{p}^c}$, which strictly characterizes the mirabolic congruence subgroup $K_1(\mathfrak{p}^c)$ consisting of matrices in $K_n$ whose last row is congruent to $e_n$ modulo $\mathfrak{p}^c$. By foundational theory (H.\ Jacquet, I.\ I.\ Piatetski-Shapiro, and J.\ A.\ Shalika, \textit{Conducteur des repr\'esentations du groupe lin\'eaire}, 1981), the essential newform $V_0$ is invariant under right translation by $K_1(\mathfrak{p}^c)$. Since $V_0(I_n) = 1$, we obtain:
+\[
+  H(e_n) = \int_{K_1(\mathfrak{p}^c)} V_0(k) \, dk = \operatorname{vol}(K_1(\mathfrak{p}^c)) > 0.
+\]
+By the translation invariance established above, summing $H$ over the $q^n$ mutually distinct shifts $\delta \in \mathfrak{p}^{c-1}G$ yields:
+\[
+  \sum_{\delta \in \mathfrak{p}^{c-1}G} H(e_n + \delta) = q^n H(e_n) > 0.
+\]
+Conversely, returning to the definition of $H$, the disjoint union of the integration domains $\{k \in K_n : e_n k \equiv e_n + \delta \pmod{\mathfrak{p}^c}\}$ systematically aggregates to the coarser condition $e_n k \equiv e_n \pmod{\mathfrak{p}^{c-1}}$. This aggregated domain precisely identifies the broader mirabolic congruence subgroup $K_1(\mathfrak{p}^{c-1})$. Therefore:
+\[
+  \sum_{\delta \in \mathfrak{p}^{c-1}G} H(e_n + \delta) = \int_{K_1(\mathfrak{p}^{c-1})} V_0(k) \, dk.
+\]
+This integral calculates the evaluation at $I_n$ of the locally averaged vector
+\[
+  v = \int_{K_1(\mathfrak{p}^{c-1})} \pi(k) V_0 \, dk \in \mathcal{W}(\pi, \psi).
+\]
+Because the conductor of $\pi$ is exactly $\mathfrak{p}^c$, the representation $\pi$ contains no nonzero vectors invariant under the larger mirabolic congruence subgroup $K_1(\mathfrak{p}^{c-1})$. Thus, the vector $v$ identically vanishes, mandating $v(I_n) = 0$.
+
+We are thereby led to the contradiction $0 = q^n \operatorname{vol}(K_1(\mathfrak{p}^c)) > 0$. This contradiction demonstrates that the uniform vanishing hypothesis must be false. We conclude that there exists some translate $V = \pi(h^{-1}) V_0$ for which the local Rankin--Selberg integral is finite and nonzero, completing the proof.
+\end{proof}
+\end{solution}
+
+\end{document}

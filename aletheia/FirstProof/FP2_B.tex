@@ -1,0 +1,189 @@
+\documentclass{article}
+\usepackage{geometry}
+\usepackage{graphicx, url, hyperref, amsmath, amssymb, mathtools, comment, xcolor}
+\usepackage{amsthm}
+\usepackage[most]{tcolorbox}
+\tcbuselibrary{skins, breakable}
+\usepackage[shortlabels]{enumitem}
+\usepackage{mathscinet} % for \Dbar
+\usepackage{caption}
+\usepackage{booktabs}
+\usepackage{tabularx}
+
+% Geometry settings
+\geometry{margin=1.5in}
+
+% --- Theorems and Styles ---
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{claim}{Claim}
+
+\theoremstyle{definition}
+\newtheorem*{example}{Example}
+\newtheorem{remark}{Remark}[section]
+\newtheorem{definition}[theorem]{Definition}
+
+% --- Custom Commands ---
+\newcommand{\Aletheia}{\emph{Aletheia}}
+\renewcommand{\comment}[1]{\marginpar{{\tiny{#1}\normalfont\par}}}
+\newcommand{\tony}[1]{{\color{red}Tony: #1}}
+
+% --- Defined Colors ---
+\definecolor{boxblue}{RGB}{0, 0, 150}
+\definecolor{boxback}{RGB}{245, 245, 255}
+
+% --- The Problem Environment ---
+\newtcolorbox{problem}[1]{%
+    colback=boxback,
+    colframe=boxblue,
+    fonttitle=\bfseries\large,
+    title={#1},
+    sharp corners,
+    enhanced,
+    attach boxed title to top left={yshift=-2mm, xshift=2mm},
+    boxed title style={colframe=boxblue, colback=boxblue},
+    before skip=15pt plus 2pt,
+    after skip=15pt plus 2pt,
+    top=10pt, bottom=10pt, left=10pt, right=10pt
+}
+
+\newtcolorbox{solution}[1]{%
+    colback=white,
+    colframe=boxblue,
+    fonttitle=\bfseries\large,
+    title={#1},
+    sharp corners,
+    enhanced jigsaw, % Better frame handling for page breaks than just 'enhanced'
+    breakable,       % <--- Allows the box to split across pages
+    attach boxed title to top left={yshift=-2mm, xshift=2mm},
+    boxed title style={colframe=boxblue, colback=boxblue},
+    before skip=15pt plus 2pt,
+    after skip=15pt plus 2pt,
+    top=10pt, bottom=10pt, left=10pt, right=10pt
+}
+
+
+\date{}
+
+
+\begin{document}
+\emph{The prompts and responses below have been edited only for
+formatting compatibility (to compile in a \LaTeX document).}
+
+\begin{problem}{FirstProof \# 2}
+    Let \(F\) be a non-archimedean local field with ring of integers \(\mathfrak o\).  Let $N_r$ denote the subgroup of $\mathrm{GL}_{r}(F)$ consisting of upper-triangular unipotent elements.  Let \(\psi:F\to \mathbb C^\times\) be a nontrivial additive character of conductor \(\mathfrak o\), identified in the standard way with a generic character of $N_r$.
+Let \(\Pi\) be a generic irreducible admissible representation of \(\mathrm{GL}_{n + 1}(F)\), realized in its \(\psi^{-1}\)-Whittaker model \(\mathcal W(\Pi,\psi^{-1})\).  Must there exist \(W\in \mathcal W(\Pi,\psi^{-1})\) with the following property?
+
+Let $\pi$ be a generic irreducible admissible representation of \(\mathrm{GL}_{n}(F)\), realized in its $\psi$-Whittaker model \(\mathcal W(\pi,\psi)\).  Let $\mathfrak{q}$ denote the conductor ideal of $\pi$, let \(Q\in F^\times\) be a generator of \(\mathfrak q^{-1}\), and set
+\[
+  u_Q := I_{n+1} + Q\,E_{n,n+1} \in \mathrm{GL}_{n + 1}(F),
+\]
+where \(E_{i, j}\) is the matrix with a \(1\) in the \((i, j)\)-entry and \(0\) elsewhere.  For some \(V\in \mathcal W(\pi,\psi)\), the local Rankin--Selberg integral
+\[
+  \int_{N_n\backslash \mathrm{GL}_{n}(F)} W(\operatorname{diag}(g,1) u_Q)\,V(g)\,|\det g|^{s-\frac12}\,dg
+\]
+is finite and nonzero for all \(s\in\mathbb C\).
+\end{problem}
+
+\begin{solution}{Model Response (Agent B)}
+\textbf{Theorem.} \textit{Let $F$ be a non-archimedean local field and let $\Pi$ be a generic irreducible admissible representation of $\mathrm{GL}_{n+1}(F)$. There exists a universally defined test vector $W \in \mathcal{W}(\Pi, \psi^{-1})$ such that for any generic irreducible admissible representation $\pi$ of $\mathrm{GL}_n(F)$ with conductor ideal $\mathfrak{q}$ and a generator $Q \in \mathfrak{q}^{-1}$, there exists $V \in \mathcal{W}(\pi, \psi)$ for which the local Rankin--Selberg integral
+\[
+  I(s, W, V) = \int_{N_n\backslash \mathrm{GL}_{n}(F)} W(\operatorname{diag}(g,1) u_Q)\,V(g)\,|\det g|^{s-\frac12}\,dg
+\]
+is finite and nonzero for all $s\in\mathbb C$.}
+
+\begin{proof}
+Let $\mathfrak{o}$ be the ring of integers of $F$, $\mathfrak{p}$ its maximal ideal, and $\varpi$ a fixed uniformizer. Let $q = |\mathfrak{o}/\mathfrak{p}|$. Let $G_m = \mathrm{GL}_m(F)$, let $N_m$ be its standard upper-triangular unipotent radical, and let $K_m = \mathrm{GL}_m(\mathfrak{o})$ be the standard maximal compact subgroup.
+
+\textbf{Step 1: Construction of the universal test vector $W$}
+
+Because the additive character $\psi$ has exact conductor $\mathfrak{o}$, its inverse $\psi^{-1}$ evaluates identically to $1$ on the compact intersection $N_n(\mathfrak{o}) = N_n \cap K_n$. Thus, we may unambiguously define a smooth, locally constant function $\Phi \in C_c^\infty(N_n \backslash G_n, \psi^{-1})$ supported precisely on the open and closed double coset $N_n K_n$ by setting:
+\[
+  \Phi(nk) = \psi^{-1}(n) \quad \text{for all } n \in N_n \text{ and } k \in K_n,
+\]
+and extending by zero outside $N_n K_n$. This function is compactly supported modulo $N_n$.
+
+Let $P_{n+1} \subset G_{n+1}$ be the mirabolic subgroup (matrices with last row $(0,\dots,0,1)$). By the foundational exact sequence of the Kirillov model (see Theorem 5.20 of I. N. Bernstein and A. V. Zelevinsky, \textit{Representations of the group $\mathrm{GL}(n,F)$, where $F$ is a local non-Archimedean field}, Uspekhi Mat. Nauk \textbf{31}:3 (1976), 5--70), the restriction map $W \mapsto W|_{P_{n+1}}$ is an isomorphism from the Whittaker space $\mathcal{W}(\Pi, \psi^{-1})$ onto the Kirillov space $\mathcal{K}(\Pi, \psi^{-1})$. A defining structural property of this exact sequence is that for generic representations, $\mathcal{K}(\Pi, \psi^{-1})$ canonically contains the subspace of compactly supported functions $C_c^\infty(N_{n+1} \backslash P_{n+1}, \psi^{-1})$.
+
+Under the natural embedding $G_n \hookrightarrow P_{n+1}$ via $g \mapsto \operatorname{diag}(g, 1)$, we have a canonical topological isomorphism $N_{n+1} \backslash P_{n+1} \cong N_n \backslash G_n$. Thus, the restriction of $\mathcal{W}(\Pi, \psi^{-1})$ to $G_n$ canonically contains $C_c^\infty(N_n \backslash G_n, \psi^{-1})$. We may therefore universally fix a valid pre-image vector $W \in \mathcal{W}(\Pi, \psi^{-1})$ such that $W(\operatorname{diag}(g, 1)) = \Phi(g)$ for all $g \in G_n$. Crucially, $W$ is fixed exclusively by $\Pi$ and $\psi$, and is completely independent of $s$, $\pi$, and $Q$.
+
+\textbf{Step 2: Algebraic reduction to a compact functional}
+
+Let $u_Q = I_{n+1} + Q E_{n, n+1}$, where $E_{i,j}$ denotes the elementary matrix with a $1$ in the $(i,j)$-entry and $0$ elsewhere. For any $g \in G_n$, block matrix multiplication yields the exact algebraic factorization:
+\[
+  \operatorname{diag}(g, 1) u_Q = U_g \operatorname{diag}(g, 1), \quad \text{where } U_g = I_{n+1} + Q \sum_{i=1}^n g_{i, n} E_{i, n+1} \in N_{n+1}.
+\]
+Using the left $(N_{n+1}, \psi^{-1})$-equivariance of $W$, we evaluate the Whittaker function. The unique non-zero superdiagonal entry of $U_g$ is located at $(n, n+1)$, evaluating exactly to $Q g_{n,n}$. All other superdiagonal entries are zero. Therefore:
+\[
+  W(\operatorname{diag}(g, 1) u_Q) = \psi^{-1}(U_g) W(\operatorname{diag}(g, 1)) = \psi^{-1}(Q g_{n,n}) \Phi(g).
+\]
+Substituting this identity into the local Rankin--Selberg integral against an arbitrary $V \in \mathcal{W}(\pi, \psi)$, the compact support of $\Phi$ strictly truncates the integration domain exactly to the compact quotient $N_n \backslash N_n K_n \cong N_n(\mathfrak{o}) \backslash K_n$.
+
+For any representative $k \in K_n$, the modular factor $|\det k|^{s-1/2} = 1$, unconditionally eliminating all $s$-dependence. Because the resulting integrand is natively left $N_n(\mathfrak{o})$-invariant, we lift the integral directly to $K_n$. Normalizing compatibly with the probability Haar measure $dk$ on $K_n$, the integral rigorously reduces to an absolutely convergent, $s$-independent linear functional:
+\[
+  I(s, W, V) = \int_{K_n} \psi^{-1}(Q k_{n,n}) V(k) \, dk := \ell_Q(V).
+\]
+
+\textbf{Step 3: Resolution for unramified $\pi$ ($c = 0$)}
+
+If $\pi$ is unramified, its exact conductor ideal is $\mathfrak{o}$, meaning $Q \in \mathfrak{o}^\times$. We naturally choose $V = V_{\mathrm{sph}}$, the normalized spherical vector, so $V_{\mathrm{sph}}(k) = 1$ for all $k \in K_n$. Since $k_{n,n} \in \mathfrak{o}$ for all $k \in K_n$, the product $Q k_{n,n} \in \mathfrak{o}$. Because $\psi^{-1}$ is identically trivial on $\mathfrak{o}$, the phase evaluates to $1$, yielding $\ell_Q(V_{\mathrm{sph}}) = \operatorname{vol}(K_n) = 1 > 0$.
+
+\textbf{Step 4: Ramified non-vanishing via Hecke convolution ($c \ge 1$)}
+
+Assume $\pi$ is ramified with exact conductor ideal $\mathfrak{q} = \mathfrak{p}^c$. Thus $v(Q) = -c$. We define a localized test function in the Hecke algebra $\mathcal{H}(G_n)$:
+\[
+  f_Q(g) = \mathbf{1}_{K_n}(g) \psi^{-1}(Q g_{n,n}).
+\]
+Note that by definition, for any $V \in \mathcal{W}(\pi, \psi)$, we have $\ell_Q(V) = \int_{G_n} f_Q(k)V(k) \, dk = (\pi(f_Q)V)(I_n)$. We construct an adjoint element $\tilde{f}_Q(g) = \overline{f_Q(g^{-1})} = \mathbf{1}_{K_n}(g) \psi(Q (g^{-1})_{n,n})$.
+
+Let $W^{\mathrm{ess}} \in \mathcal{W}(\pi, \psi)$ be the essential newform of $\pi$ (see Théorème 5.1 of H. Jacquet, I. I. Piatetski-Shapiro, and J. A. Shalika, \textit{Conducteur des représentations du groupe linéaire}, Math. Ann. \textbf{256}:2 (1981), 199--214), uniquely normalized so $W^{\mathrm{ess}}(I_n) = 1$. We construct our test vector $V \in \mathcal{W}(\pi, \psi)$ as the convolution $V = \pi(\tilde{f}_Q) W^{\mathrm{ess}}$.
+
+Evaluating $\ell_Q(V)$ yields the exact action of the convolution operator $F_Q = f_Q * \tilde{f}_Q$ on the newform:
+\[
+  \ell_Q(V) = \left(\pi(f_Q)\pi(\tilde{f}_Q) W^{\mathrm{ess}}\right)(I_n) = (\pi(F_Q) W^{\mathrm{ess}})(I_n) = \int_{K_n} F_Q(k) W^{\mathrm{ess}}(k) \, dk.
+\]
+We explicitly compute $F_Q(k)$ for $k \in K_n$:
+\[
+  F_Q(k) = \int_{G_n} f_Q(kh) \tilde{f}_Q(h^{-1}) \, dh = \int_{K_n} \psi^{-1}(Q (kh)_{n,n}) \psi(Q h_{n,n}) \, dh.
+\]
+Let $x^{\mathsf{T}}$ be the last row of $k$, and $y$ be the last column of $h$. Standard matrix multiplication gives $(kh)_{n,n} = \langle x, y \rangle$ and $h_{n,n} = \langle e_n, y \rangle$. As $h$ varies over $K_n$, its last column $y$ uniformly covers the sphere of primitive unimodular vectors $S^{n-1} = \mathfrak{o}^n \setminus \mathfrak{p}^n$. The integral descends exactly to the unique invariant probability measure $dy$ on $S^{n-1}$:
+\[
+  F_Q(k) = \int_{S^{n-1}} \psi(Q \langle e_n - x, y \rangle) \, dy.
+\]
+Let $z = e_n - x$. Since $v(Q) = -c$, the character depends solely on $y \pmod{\mathfrak{p}^c}$. We partition $S^{n-1}$ into fibers over $G = (\mathfrak{o}/\mathfrak{p}^c)^n$. The reduction of $S^{n-1}$ is precisely $S_c = G \setminus \mathfrak{p}G$, which has cardinality $|S_c| = q^{nc} - q^{n(c-1)}$. The integral cleanly descends to a finite geometric average:
+\[
+  F_Q(k) = \frac{1}{|S_c|} \left[ \sum_{y \in G} \psi(Q \langle z, y \rangle) - \sum_{y \in \mathfrak{p}G} \psi(Q \langle z, y \rangle) \right].
+\]
+By standard orthogonality of characters of finite abelian groups, the sums evaluate to exact values:
+\begin{enumerate}
+    \item The first sum yields $q^{nc}$ if $z \equiv 0 \pmod{\mathfrak{p}^c}$, and $0$ otherwise.
+    \item For the second sum, parameterizing $y = \varpi u$ where $u \in (\mathfrak{o}/\mathfrak{p}^{c-1})^n$, the character becomes $\psi(Q\varpi \langle z, u \rangle)$. Since $v(Q\varpi) = -(c-1)$, this yields $q^{n(c-1)}$ if $z \equiv 0 \pmod{\mathfrak{p}^{c-1}}$, and $0$ otherwise.
+\end{enumerate}
+
+Crucially, the condition $z \equiv 0 \pmod{\mathfrak{p}^m}$ strictly enforces $x \equiv e_n \pmod{\mathfrak{p}^m}$. Because $x^{\mathsf{T}}$ is the last row of $k \in K_n$, this is identically the defining condition of the mirabolic congruence subgroup $K_1(\mathfrak{p}^m)$. We have thus synthesized the exact geometric indicator identity:
+\[
+  F_Q = \frac{q^{nc}}{|S_c|} \mathbf{1}_{K_1(\mathfrak{p}^c)} - \frac{q^{n(c-1)}}{|S_c|} \mathbf{1}_{K_1(\mathfrak{p}^{c-1})}.
+\]
+
+\textbf{Step 5: Strict non-vanishing via the exact conductor}
+
+Applying the operator $\pi(F_Q)$ to $W^{\mathrm{ess}}$ rigorously projects the newform onto mirabolic congruence spaces:
+\begin{enumerate}
+    \item By Théorème 5.1 of Jacquet, Piatetski-Shapiro, and Shalika (1981), $c$ is the exact conductor of $\pi$. Therefore, $\pi$ intrinsically possesses strictly zero non-trivial vectors invariant under $K_1(\mathfrak{p}^{c-1})$. Thus, the projection integral $\int_{K_1(\mathfrak{p}^{c-1})} \pi(k) W^{\mathrm{ess}} \, dk$ vanishes identically.
+    \item By definition, the essential newform $W^{\mathrm{ess}}$ is strictly invariant under $K_1(\mathfrak{p}^c)$. Its integral over $K_1(\mathfrak{p}^c)$ naturally scales it by $\operatorname{vol}(K_1(\mathfrak{p}^c))$.
+\end{enumerate}
+
+Combining these orthogonal evaluations, the convolution cleanly collapses the operator into a strictly positive scalar multiple of the newform itself:
+\[
+  \pi(F_Q) W^{\mathrm{ess}} = \frac{q^{nc}}{|S_c|} \operatorname{vol}(K_1(\mathfrak{p}^c)) W^{\mathrm{ess}}.
+\]
+Evaluating this vector at the identity $I_n$ unconditionally concludes the proof:
+\[
+  \ell_Q(V) = (\pi(F_Q) W^{\mathrm{ess}})(I_n) = \frac{q^{nc}}{|S_c|} \operatorname{vol}(K_1(\mathfrak{p}^c)) W^{\mathrm{ess}}(I_n) > 0.
+\]
+We have explicitly constructed a generic Whittaker vector $V \in \mathcal{W}(\pi, \psi)$ such that the shifted local Rankin--Selberg integral $I(s, W, V)$ evaluates to a strictly positive constant. It is finite, nonzero, and functionally independent of $s \in \mathbb{C}$, universally completing the proof.
+\end{proof}
+\end{solution}
+
+\end{document}

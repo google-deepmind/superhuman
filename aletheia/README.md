@@ -22,6 +22,9 @@ Karrabi–Montaseri–Pagano. It establishes that specific bounded combinations 
   * Problem 8: A ([tex](FirstProof/FP8_A.tex), [pdf](FirstProof/FP8_A.pdf)), B ([tex](FirstProof/FP8_B.tex), [pdf](FirstProof/FP8_B.pdf)).
   * Problem 9: A ([tex](FirstProof/FP9_A.tex), [pdf](FirstProof/FP9_A.pdf)), Af ([tex](FirstProof/FP9_Af.tex), [pdf](FirstProof/FP9_Af.pdf)), B ([tex](FirstProof/FP9_B.tex), [pdf](FirstProof/FP9_B.pdf)).
   * Problem 10: A ([tex](FirstProof/FP10_A.tex), [pdf](FirstProof/FP10_A.pdf)), B ([tex](FirstProof/FP10_B.tex), [pdf](FirstProof/FP10_B.pdf)).
+* Proof that the Hodge bundle on the moduli space of genus g curves is simple, i.e., admits no non-trivial sub-bundles: [tex](HodgeBundle/HodgeBundle.tex), [pdf](HodgeBundle/HodgeBundle.pdf) ([full paper](https://arxiv.org/pdf/2603.19052)).
+* A resolution to Problem 5.16 of the [Kirby3 problem list](https://bpb-us-e2.wpmucdn.com/websites.umass.edu/dist/b/22144/files/2026/04/K3-problem-list-watermarked.pdf) for non-commutative semifree DGAs: [tex](Kirby/Kirby5-16.tex), [pdf](Kirby/Kirby5-16.pdf).
+* Aletheia realized that Problem 3.39b of the [Kirby3 problem list](https://bpb-us-e2.wpmucdn.com/websites.umass.edu/dist/b/22144/files/2026/04/K3-problem-list-watermarked.pdf) reduces immediately to a recent result of [Chen-Lodha](https://arxiv.org/abs/2510.26073).
 
 ## License and disclaimer
 

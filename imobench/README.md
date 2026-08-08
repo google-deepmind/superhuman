@@ -17,6 +17,15 @@ As of 02/12/2026, we updated IMO-Answerbench with `answerbench_v2.csv` to fix
 some problems that had ambiguous problem statements or incorrect answers.
 The previous version [answerbench.csv](answerbench.csv) is now deprecated.
 
+## Dataset Validation
+
+To validate the integrity and schema of the IMO Bench CSV files, run:
+
+```bash
+python3 imobench/validate_imobench.py
+...
+
+
 ## Acknowledgments
 
 We would like to thank Mirek Olšák, Ashley Aragorn Khoo, Edward Lockhart,

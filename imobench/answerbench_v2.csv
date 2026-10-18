@@ -813,7 +813,7 @@ imo-bench-geometry-002,"Given right triangle $ XYZ$ with hypothenuse $ XZ$ and $
 imo-bench-geometry-003,"Given a convex $n$-sided polygon $B_1\ldots B_n$. Let $Q_i$ ($i = 1,\ldots, n$) be points on the boundary of the polygon such that $B_iQ_i$ divides the area of the polygon in half.  Assume that none of the points $Q_i$ coincide with any vertex of the polygon and that these points lie on $k$ sides of the $n$-sided polygon. For a given value of $n$, determine the minimum possible value of $k$.
 ",3,Geometry,combinatorial_geometry,Sharygin 2009
 imo-bench-geometry-004,"Let $n$ cities lie on the circumference of a circular lake. Exactly half of the triangles formed by connecting any three of these cities are acute-angled triangles. Find the value of $n$ for which this is possible.
-",45752,Geometry,combinatorial_geometry,Sharygin 2009
+","4, 5",Geometry,combinatorial_geometry,Sharygin 2009
 imo-bench-geometry-005,"Given cyclic quadrilateral $PQRS$. Four circles each touching its diagonals and the circumcircle internally are equal. Compute the ratio $\frac{PR}{PQ}+\frac{PS}{PQ}$.
 ",$\sqrt{2}+1$,Geometry,proof_based_geometry,Sharygin 2009
 imo-bench-geometry-006,"Let $x, y, z$ be the lengths of some triangle's sides, $s, \rho$ be the semiperimeter and the inradius of the triangle. Find the minimum value of $\sqrt{\frac{xy(s- z)}{s}} +\sqrt{\frac{zx(s- y)}{s}} +\sqrt{\frac{yz(s-x)}{s}}$ in terms of $\rho$.
@@ -1175,7 +1175,7 @@ we have
 \[
     \frac{a^x + b^x + 1}{3} \ge x + 1.
 \]
-"," $\left\{ (a,b):ab\leq e^{3}\right\}$",Number theory,Diophantine Equation,Vietnam 1997
+"," $\left\{ (a,b):ab \geq e^3\right\}$",Number theory,Diophantine Equation,Vietnam 1997
 imo-bench-number_theory-049,"Find the maximum value of $m$ such that for any partition of $\{1, 2, \dots, 40\}$ into $m$ sets, there exists a set containing three elements $x, y, z$ (possibly with repetition) such that $x + y - z = 0$.
 ",3,Number theory,Set,Belarus 2000
 imo-bench-number_theory-050,"A sequence $(a_k)$ is called ""weakly increasing"" if there exists an $N$ such that $a_{k+1} > a_k$ for $k > N$.

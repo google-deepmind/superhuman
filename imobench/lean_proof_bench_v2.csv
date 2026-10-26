@@ -995,7 +995,9 @@ theorem PBBasic028
     (hω : midpoint ℝ A B ∈ ω ∧ midpoint ℝ B C ∈ ω ∧ midpoint ℝ C A ∈ ω)
     (W : Sphere ℝ²) (X Y : ℝ²) -- W is a circle that
     (hX : W.IsTangentAt X (affineSpan ℝ {A, B})) -- is tangent to AB at X
+    (hXseg : Wbtw ℝ A X B) -- with X on the closed side AB
     (hY : W.IsTangentAt Y (affineSpan ℝ {A, C})) -- is tangent to AC at Y
+    (hYseg : Wbtw ℝ A Y C) -- with Y on the closed side AC
     (tangent : W.IsExtTangent ω) -- is externally tangent to the 9-point circle
     (inside : W.center ∈ convexHull ℝ {A, B, C}) : -- and the center of W is inside triangle ABC
     let E := altitudeFoot ⟨![A, B, C], tri⟩ 1 -- E is the foot from B

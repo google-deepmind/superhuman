@@ -2206,6 +2206,9 @@ theorem PBAdvanced010
     (H₁ : ℝ²) (hH₁ : H₁ = orthogonalProjection (affineSpan ℝ {A, B}) P)
     -- let $K$ be the reflection of $A$ about $H_1$.
     (K : ℝ²) (hK : K = reflection (affineSpan ℝ {H₁}) A)
+    -- Both triples determine genuine circumcircles.
+    (hKPQ : ¬ Collinear ℝ {K, P, Q})
+    (hPHM : ¬ Collinear ℝ {P, H, M})
     -- K ≠ Q (non-degeneracy: prevents 3-point trivial cosphericality)
     (hK_ne_Q : K ≠ Q)
     -- The two circumcircles are distinct (non-degeneracy: prevents coincidence at X = G)

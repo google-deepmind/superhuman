@@ -151,7 +151,7 @@ imo-bench-algebra-036,"Find all functions $Y: \mathbb{R} \backslash\{0\} \righta
 \[
 a Y\left(a+\frac{1}{b}\right)+b Y(b)+\frac{a}{b}=b Y\left(b+\frac{1}{a}\right)+a Y(a)+\frac{b}{a}
 \]
-,"$Y(x)=A+\frac{B}{x}-x$",Algebra,Functional Equation,Iran 2002
+","$Y(x)=A+\frac{B}{x}-x$",Algebra,Functional Equation,Iran 2002
 imo-bench-algebra-037,"Find all functions $X: \mathbb{C} \rightarrow \mathbb{C}$ such that the equation
 $$X(X(a)+b X(b)-b-1)=1+a+|b|^{2}$$
 holds for all complex numbers $a,b\in \mathbb{C}$ and that $X(1)=u$ for some $u\in \mathbb{C}$ such that $|u-1|=1$.

@@ -176,7 +176,7 @@ $$L \sum_{j=1}^{1028} i f_{i}^{2} \geq  \sum_{i=1}^{1028} f_{i}^{2}$$
 holds for all concave sequences $f_1, f_2, \ldots, f_{1028}$.
 ",$\frac{685}{176302}$,Algebra,Sequence,Iran 2010
 imo-bench-algebra-043,"A sequence $b_1, b_2, \ldots, b_k$ is said to 'increase steeply' if each term is positive, and for each $2 \le i \le k$, $b_i \ge b_{i-1} + \cdots + b_2 + b_1$. Find the maximum value of the constant $S$ such that for all $k$ and steeply increasing sequences $b_1, b_2, \ldots, b_k$,
-$$S\sum_{i=1}^k{\sqrt{x_i}}\le \sqrt{\sum_{i=1}^k{x_i}}$$
+$$S\sum_{i=1}^k{\sqrt{b_i}}\le \sqrt{\sum_{i=1}^k{b_i}}$$
 holds.
 ",$\sqrt{2}-1$,Algebra,Inequality,IMO Shortlist 1986
 imo-bench-algebra-044,"Find the maximum value of the constant $U$ such that $(2x^2+1)(2y^2+1)(2z^2+1)\ge U(xy+yz+zx)$ is always true for positive real numbers $x, y, z$.
@@ -197,7 +197,7 @@ imo-bench-algebra-049,"Real numbers $d$ and $f$, and negative real numbers $\alp
 
 Find the minimum possible value of $d-f$.
 ",$\frac{16}{27}$,Algebra,Inequality,Moldova 2008
-imo-bench-algebra-050,"Let $r$ be the unique positive root of $x^3+x^2+x-10=0$. Suppose that for non-negative integers $k_0, k_1, k_2, \ldots , k_{100}$, we have $$\sum_{i=0}^{101}k_i r^i=2025.$$ Find the minimum possible value of $\sum_{i=0}^{101}k_i$.
+imo-bench-algebra-050,"Let $r$ be the unique positive root of $x^3+x^2+x-10=0$. Suppose that for non-negative integers $k_0, k_1, k_2, \ldots , k_{100}$, we have $$\sum_{i=0}^{100}k_i r^i=2025.$$ Find the minimum possible value of $\sum_{i=0}^{100}k_i$.
 ",44,Algebra,Polynomial,Vietnam 2015
 imo-bench-algebra-051,"Find all possible positive integer $n$ such that there exists polynomial $P(x), Q(x)$ with integer coefficients such that
 \[
@@ -335,7 +335,7 @@ imo-bench-algebra-075,"Find the largest possible positive integer $n$ such that 
 \[
 3(a_i^2 + a_j^2) + 15a_i^2 a_j^2 \ge (4a_ia_j + 1)^2
 \]
-for any $1 \le i, j \le n$.
+for any $1 \le i, j \le n$ with $i \ne j$.
 ",3,Algebra,Inequality,Hong Kong TST 2015
 imo-bench-algebra-076,"Find the smallest positive integer $n$ such that there exist real numbers $\theta_1, \ldots, \theta_n$ satisfying
 \[
@@ -753,7 +753,7 @@ imo-bench-combinatorics-084,"Minh is a student whose birthday is in the year $19
 
 and then write this tuple on the blackboard.
 
-It turns out that, in this way, Minh can write any integer-valued 2023-tuple on the blackboard after finitely many steps. What is the smallest possible number $s$ of tuples that he initially wrote?",3,Combinatorics,Operations,IMO Shortlist 2022
+It turns out that, in this way, Minh can write any integer-valued 1997-tuple on the blackboard after finitely many steps. What is the smallest possible number $s$ of tuples that he initially wrote?",3,Combinatorics,Operations,IMO Shortlist 2022
 imo-bench-combinatorics-085,"Evan fills the fields of an $78 \times 78$ board with numbers from 1 to $6084$, each number being used exactly once. She then counts the total number of good paths on the board. A good path is a sequence of fields of arbitrary length (including 1) such that:
 
 (i) The first field in the sequence is one that is only adjacent to fields with larger numbers.
@@ -777,7 +777,7 @@ imo-bench-combinatorics-089,"We colored the $10000$ unit squares of an $100 \tim
 ",5099,Combinatorics,Extremal Combinatorics,Komal
 imo-bench-combinatorics-090,"A polyomino is a figure which consists of unit squares joined together by their sides. (A polyomino may contain holes.) Consider a grid of unit square cells which extends to infinity in all directions. Find the greatest positive integer $C$ which satisfies the following condition: For every colouring of the cells of the grid in $36$ colours, there is some polyomino within the grid which contains at most $35$ colours and whose area is at least $C$.
 ",2450,Combinatorics,Tiling,Komal
-imo-bench-combinatorics-091,"Let $n,s,$ and $t$ be positive integers and $0<\lambda<1.$ A simple graph on $n$ vertices with at least $\lambda n^2$ edges is given. We say that $(x_1,\ldots,x_s,y_1,\ldots,y_t)$ is a good intersection if letters $x_i$ and $y_j$ denote not necessarily distinct vertices and every $x_iy_j$ is an edge of the graph $(1\leq i\leq s,$ $1\leq j\leq t).$ Let $M_n$ be the minimum number of good insertions. Find $a,b$ such that $\lim_{n\to \infty} \frac{M_n}{n^a} = b$
+imo-bench-combinatorics-091,"Let $n,s,$ and $t$ be positive integers and $0<\lambda<1.$ A simple graph on $n$ vertices with at least $\lambda n^2$ edges is given. We say that $(x_1,\ldots,x_s,y_1,\ldots,y_t)$ is a good intersection if letters $x_i$ and $y_j$ denote not necessarily distinct vertices and every $x_iy_j$ is an edge of the graph $(1\leq i\leq s,$ $1\leq j\leq t).$ Let $M_n$ be the minimum number of good intersections. Find $a,b$ such that $\lim_{n\to \infty} \frac{M_n}{n^a} = b$
 ","$a=s+t$, $b = (2\lambda)^{st}$",Combinatorics,Graph Theory,Komal
 imo-bench-combinatorics-092,"For an arbitrary positive integer $m$, not divisible by $3$, consider the permutation $x \mapsto 3x \pmod{m}$ on the set $\{ 1,2,\dotsc ,m-1\}$. This permutation can be decomposed into disjointed cycles; for instance, for $m=10$ the cycles are $(1\mapsto 3\to 9,\mapsto 7,\mapsto 1)$, $(2\mapsto 6\mapsto 8\mapsto 4\mapsto 2)$ and $(5\mapsto 5)$. Find the second largest integer $m < 200$ such that the number of cycles odd?
 ",197,Combinatorics,Graph Theory,Komal
@@ -859,7 +859,7 @@ imo-bench-geometry-025,"Let $XYZ$ be an acute-angled scalene triangle and $P$ be
 ",30,Geometry,computation,Sharygin 2021
 imo-bench-geometry-026,"A line intersects a segment $PQ$ at point $R$. What is the maximum number of points $Y$ on this line such that one of the angles $\angle PYR$ and $\angle QYR$ is equal to half of the other?
 ",4,Geometry,computation,Sharygin 2022
-imo-bench-geometry-027,"The median $WY$ and the altitude $UZ$ of an acute-angled triangle $UVW$ intersect at point $P$. A point $Q$ lies outside the triangle such that $UPWQ$ is a parallelogram. Find the length of $VQ$, if $MP = x$, $PW = y$.",$2x+y$,Geometry,computation,Sharygin 2023
+imo-bench-geometry-027,"The median $WY$ and the altitude $UZ$ of an acute-angled triangle $UVW$ intersect at point $P$. A point $Q$ lies outside the triangle such that $UPWQ$ is a parallelogram. Find the length of $VQ$, if $YP = x$, $PW = y$.",$2x+y$,Geometry,computation,Sharygin 2023
 imo-bench-geometry-028,"Let $\Omega$ be the circumcircle of triangle $XYZ$, $C$ be its center, $X'$ be the point of $\Omega$ opposite to $X$, and $P$ be a point on a minor arc $YZ$ of $\Omega$. A point $P'$ is the reflection of $P$ about $YZ$. The line $X'P'$ meets $\Omega$ for the second time at point $Q$. The perpendicular bisector to $P'Q$ meets $XY$ and $XZ$ at points $R$ and $S$ respectively. Denote $\alpha = \angle YXZ$, compute $\angle RCS$ in terms of $\alpha$.
 ",$180 - 2\alpha$,Geometry,computation,Sharygin 2023
 imo-bench-geometry-029,"Let $XYZ$ be a triangle with $\angle X = 120^\circ$, $J$ be the incenter, and $N$ be the midpoint of $YZ$. The line passing through $N$ and parallel to $XJ$ intersects the circle with diameter $YZ$ at points $U$ and $V$ ($X$ and $U$ lie on the same semiplane with respect to $YZ$). The line passing through $U$ and perpendicular to $VJ$ intersects $XY$ and $XZ$ at points $R$ and $S$ respectively. Find the value of $\angle RJS$ in terms of degree.
@@ -888,7 +888,7 @@ imo-bench-geometry-040,"Let $k$ be a positive real number. Triangle XYZ is acute
 ","1/2, 1",Geometry,proof_based_geometry,Vietnam TST 2008
 imo-bench-geometry-041,"Let $XYZ$ be a triangle with $\angle X = 60^\circ$. The points $P,Q,R$ lie on $YZ,XZ,XY$ respectively such that $YR = RP = PQ = QZ$. If $XQ = 2XR$, find the values of $\angle Y$ in terms of degree.
 ",75,Geometry,computation,Iran Geometry Olympiad 2015
-imo-bench-geometry-042,"Let $\Gamma$ be the circumcircle of right-angled triangle $XYZ$ ($\angle X = 90^{\circ}$). The tangent to $\Gamma$ at point $X$ intersects the line $YZ$ at point $T$. Suppose that $N$ is the midpoint of the minor arc $XY$, and $TN$ intersects $\Gamma$ for the second time in $R$. The tangent to $\Gamma$ at point $R$ intersects $XZ$ at $L$. Compute $\angle TLC$ in terms of degree.
+imo-bench-geometry-042,"Let $\Gamma$ be the circumcircle of right-angled triangle $XYZ$ ($\angle X = 90^{\circ}$). The tangent to $\Gamma$ at point $X$ intersects the line $YZ$ at point $T$. Suppose that $N$ is the midpoint of the minor arc $XY$, and $TN$ intersects $\Gamma$ for the second time in $R$. The tangent to $\Gamma$ at point $R$ intersects $XZ$ at $L$. Compute $\angle TLZ$ in terms of degree.
 ",90,Geometry,computation,Iran Geometry Olympiad 2016
 imo-bench-geometry-043,"Let $XYZ$ be an acute triangle with $X=60^{\circ}$. Let $Q, R$ be the feet of altitudes through $Y, Z$ respectively. Compute $ZQ-YR$ in terms of $XY, XZ$.
 ",$\frac{3}{2}(XZ-XY)$,Geometry,computation,Iran Geometry Olympiad 2017
@@ -949,7 +949,7 @@ imo-bench-geometry-070,"Let $WXYZ$ be a tetrahedron such that $WX = YZ = \sqrt{4
 ",104,Geometry,3d_geometry,AIME 2024
 imo-bench-geometry-071,"Let $\triangle XYZ$ have circumcenter $P$ and incenter $Q$ with $\overline{QX}\perp\overline{PQ}$, circumradius $20$, and inradius $8$. Find $XY\cdot XZ$.
 ",960,Geometry,computation,AIME 2024
-imo-bench-geometry-072,"Let $XYZ$ be a triangle inscribed in circle $(O)$ that is tangent to the sides $YZ, ZX, XY$ at points $U, V, W$ respectively. Assume that $M$ is the intersection of $YV$ and $ZW, N$ is the centroid of triangle $UVW, R$ is the symmetric point of $M$ about $N$. If $UR$ meets $VW$ at $S, T$ is on $VW$ such that $WT = VS$, compute $\angle UNV + \angle WNT$ in terms of degree.
+imo-bench-geometry-072,"Let $XYZ$ be a triangle with incircle $(O)$ that is tangent to the sides $YZ, ZX, XY$ at points $U, V, W$ respectively. Assume that $M$ is the intersection of $YV$ and $ZW, N$ is the centroid of triangle $UVW, R$ is the symmetric point of $M$ about $N$. If $UR$ meets $VW$ at $S, T$ is on $VW$ such that $WT = VS$, compute $\angle UNV + \angle WNT$ in terms of degree.
 ",180,Geometry,computation,Mathley 2011-2012
 imo-bench-geometry-073,"A non-equilateral triangle $XYZ$ is inscribed in a circle $\Omega$ with centre $P$, radius $R$ and its incircle has centre $Q$ and touches $YZ,ZX,XY $ at $L,M,N$, respectively. A circle with centre $Q$ and radius $\rho$ intersects the rays $[QL),[QM),[QN)$ at $X',Y',Z'$.
 
@@ -1198,7 +1198,7 @@ imo-bench-number_theory-055,"""A positive integer $m$ consisting of distinct non
 Find the largest good number.
 """,$14625$,Number theory,Base and Digit,Estonia TST 2018
 imo-bench-number_theory-056,Let $P$ be a polynomial of degree $n>1$ such that all its non-zero coefficients are 1 or -1. Suppose that $P(k)$ is a multiple of $n$ for any positive integer $k$. Find the minimum possible number of non-zero coefficients in $P$.,2,Number theory,Polynomial,Estonia TST 2018
-imo-bench-number_theory-057,"Let $b_m b_{m-1}\cdots b_0$ be the base-7 representation of a positive integer $n$ for some positive integer $m$. Let $a_i$ be the number obtained by removing the digit $b_i$ from the base-7 representation of $m$ (read in base 7). Find the number of $n$ that satisfy $n=\sum_{i=0}^{m-1}a_i$.
+imo-bench-number_theory-057,"Let $b_m b_{m-1}\cdots b_0$ be the base-7 representation of a positive integer $n$ for some positive integer $m$. Let $a_i$ be the number obtained by removing the digit $b_i$ from the base-7 representation of $n$ (read in base 7). Find the number of $n$ that satisfy $n=\sum_{i=0}^{m-1}a_i$.
 ",42,Number theory,Base and Digit,Japan 2018
 imo-bench-number_theory-058,"Let $N$ be a positive integer. Consider an infinite two-dimensional grid where each cell $(i, j) \in \mathbb{Z}_{>0}^2$ is filled with a positive integer $a_{ij}$. Determine all possible ways to fill the grid so that the following two conditions are satisfied:
 
